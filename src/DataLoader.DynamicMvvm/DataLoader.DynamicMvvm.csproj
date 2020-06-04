@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <RootNamespace>Chinook.DynamicMvvm</RootNamespace>
+        <Authors>nventive</Authors>
+        <Company>nventive</Company>
+        <AssemblyName>Chinook.DataLoader.DynamicMvvm</AssemblyName>
+        <PackageId>Chinook.DataLoader.DynamicMvvm</PackageId>
+        <Description>Chinook.DataLoader.DynamicMvvm</Description>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="0.1.0-dev.59" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DataLoader\DataLoader.csproj" />
+    </ItemGroup>
+
+</Project>

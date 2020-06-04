@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<RootNamespace>Chinook.DataLoader</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Chinook.DataLoader</AssemblyName>
+		<PackageId>Chinook.DataLoader</PackageId>
+		<Description>Chinook.DataLoader</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\DataLoader.Abstractions\DataLoader.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>
