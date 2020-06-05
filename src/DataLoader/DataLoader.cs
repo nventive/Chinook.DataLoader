@@ -313,7 +313,9 @@ namespace Chinook.DataLoader
 				trigger.Dispose();
 			}
 
+			_manualTrigger?.Dispose();
 			_triggers.Clear();
+			_strategy.Dispose();
 
 			StateChanged = null;
 
