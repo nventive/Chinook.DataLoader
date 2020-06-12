@@ -22,8 +22,4 @@
     <ProjectReference Include="..\DataLoader.DynamicMvvm\DataLoader.DynamicMvvm.csproj" />
     <ProjectReference Include="..\DataLoader\DataLoader.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Core\Integration\" />
-  </ItemGroup>
 </Project>

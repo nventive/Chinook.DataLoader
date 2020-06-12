@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,5 +28,39 @@ namespace Chinook.DataLoader
 			get => _values.TryGetValue(key, out var value) ? value : null;
 			set => _values[key] = value;
 		}
+
+		public IEnumerable<string> Keys => _values.Keys;
+
+		public IEnumerable<object> Values => _values.Values;
+
+		public int Count => _values.Count;
+
+		public bool IsReadOnly => _values.IsReadOnly;
+
+		ICollection<string> IDictionary<string, object>.Keys => _values.Keys;
+
+		ICollection<object> IDictionary<string, object>.Values => _values.Values;
+
+		public void Add(string key, object value) => _values.Add(key, value);
+
+		public void Add(KeyValuePair<string, object> item) => _values.Add(item);
+
+		public void Clear() => _values.Clear();
+
+		public bool Contains(KeyValuePair<string, object> item) => _values.Contains(item);
+
+		public bool ContainsKey(string key) => _values.ContainsKey(key);
+
+		public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex) => _values.CopyTo(array, arrayIndex);
+
+		public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => _values.GetEnumerator();
+
+		public bool Remove(string key) => _values.Remove(key);
+
+		public bool Remove(KeyValuePair<string, object> item) => _values.Remove(item);
+
+		public bool TryGetValue(string key, out object value) => _values.TryGetValue(key, out value);
+
+		IEnumerator IEnumerable.GetEnumerator() => _values.GetEnumerator();
 	}
 }

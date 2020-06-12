@@ -16,6 +16,9 @@ namespace Chinook.DataLoader
 		public string Name { get; set; }
 
 		/// <inheritdoc />
+		public Type DataType { get; set; }
+
+		/// <inheritdoc />
 		public DataLoaderDelegate LoadMethod { get; set; }
 
 		/// <inheritdoc />
@@ -79,6 +82,11 @@ namespace Chinook.DataLoader
 		/// Empty <see cref="DataLoaderBuilder{TData}"/>.
 		/// </summary>
 		public new static DataLoaderBuilder<TData> Empty => new DataLoaderBuilder<TData>();
+
+		public DataLoaderBuilder()
+		{
+			DataType = typeof(TData);
+		}
 
 		Func<IDataLoaderState<TData>, bool> IDataLoaderBuilder<TData>.EmptySelector
 		{
