@@ -17,6 +17,12 @@ namespace Chinook.DataLoader
 		string Name { get; set; }
 
 		/// <summary>
+		/// The type of data loaded by the <see cref="IDataLoader"/>.
+		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		Type DataType { get; set; }
+
+		/// <summary>
 		/// The method used to load the data of the <see cref="IDataLoader"/>.
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]

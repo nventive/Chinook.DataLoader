@@ -18,10 +18,11 @@ namespace Chinook.DataLoader
 		private readonly ILogger _logger;
 		private readonly DataLoaderConcurrentMode _concurrentMode;
 		private readonly Func<IDataLoaderState, bool> _emptySelector;
+		private readonly Dictionary<string, object> _contextValues; // The context values set by the user from the Load method (via IDataLoaderContext).
 		private DataLoaderState _state;
 		private ManualDataLoaderTrigger _manualTrigger; // The manual trigger used when invoking this.Load().
 		private CancellationTokenSource _cts; // The CancellationTokenSource for the current load execution. Assigning this field mush be done inside a lock using _ctsMutex.
-		private int _sequenceId; // This field is used to generate the SequenceId of each IDataLoaderRequest.
+		private int _sequenceId = -1; // This field is used to generate the SequenceId of each IDataLoaderRequest.
 
 		public DataLoader(string name, IDataLoaderStrategy strategy, DataLoaderConcurrentMode concurrentMode, Func<IDataLoaderState, bool> emptySelector)
 		{
@@ -31,6 +32,7 @@ namespace Chinook.DataLoader
 			_strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
 			_state = DataLoaderState.Default;
 			_triggers = new List<IDataLoaderTrigger>();
+			_contextValues = new Dictionary<string, object>();
 			_logger = this.Log();
 		}
 
@@ -73,8 +75,8 @@ namespace Chinook.DataLoader
 			var sequenceId = Interlocked.Increment(ref _sequenceId);
 			PopulateContext(context);
 
-			return InnerLoad(ct, new DataLoaderRequest(sequenceId, _manualTrigger, context));
-		}		
+			return InnerLoad(ct, new DataLoaderRequest(sequenceId, _manualTrigger, context, _contextValues));
+		}
 
 		private void OnLoadRequested(IDataLoaderTrigger trigger, IDataLoaderContext context)
 		{
@@ -85,7 +87,7 @@ namespace Chinook.DataLoader
 			var sequenceId = Interlocked.Increment(ref _sequenceId);
 			PopulateContext(context);
 
-			_ = LoadFromTrigger(cancellationToken, new DataLoaderRequest(sequenceId, trigger, context));
+			_ = LoadFromTrigger(cancellationToken, new DataLoaderRequest(sequenceId, trigger, context, _contextValues));
 
 			async Task LoadFromTrigger(CancellationToken ct, DataLoaderRequest request)
 			{
@@ -311,6 +313,14 @@ namespace Chinook.DataLoader
 			foreach (var trigger in _triggers)
 			{
 				trigger.Dispose();
+			}
+
+			foreach (var item in _contextValues.Values)
+			{
+				if (item is IDisposable disposable)
+				{
+					disposable.Dispose();
+				}
 			}
 
 			_manualTrigger?.Dispose();

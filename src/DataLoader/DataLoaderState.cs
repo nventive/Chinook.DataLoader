@@ -154,13 +154,13 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Creates a new instance of <see cref="DataLoaderState"/>.
 		/// </summary>
-		/// <param name="request"></param>
+		/// <param name="isLoading"><see cref="IDataLoaderState.IsLoading"/></param>
 		/// <returns><see cref="DataLoaderState"/></returns>
-		public DataLoaderState WithIsLoading(bool isTransient)
+		public DataLoaderState WithIsLoading(bool isLoading)
 		{
 			return new DataLoaderState(this)
 			{
-				IsLoading = isTransient
+				IsLoading = isLoading
 			};
 		}
 
