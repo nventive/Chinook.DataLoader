@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Chinook.DataLoader;
 using Chinook.DataLoader.SubscribeToData;
 using Xunit;
 
-namespace Chinook.DataLoader.Tests.Core.Integration
+namespace Tests.Core.Integration
 {
 	public class SubscribeToDataTests
 	{

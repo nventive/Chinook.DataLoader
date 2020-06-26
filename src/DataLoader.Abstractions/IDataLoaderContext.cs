@@ -7,26 +7,46 @@ namespace Chinook.DataLoader
 	/// <summary>
 	/// A <see cref="IDataLoaderContext"/> represents metadata added to the <see cref="IDataLoaderRequest"/> before and during its execution.
 	/// </summary>
-	public interface IDataLoaderContext : IDictionary<string, object>
+	/// <remarks>
+	/// We don't implement <see cref="IReadOnlyDictionary{TKey, TValue}"/> because the xaml binding engine has a special behavior for types implementing this interface.
+	/// The xaml engine uses <see cref="IReadOnlyDictionary{TKey, TValue}.ContainsKey(TKey)"/> instead of the indexer, which we don't want.
+	/// </remarks>
+	public interface IDataLoaderContext : IEnumerable<KeyValuePair<string, object>>
 	{
+		/// <inheritdoc cref="IDictionary{TKey, TValue}.Add"/>
+		void Add(string key, object value);
+
+		/// <inheritdoc cref="IDictionary{TKey, TValue}.Remove(TKey)"/>
+		bool Remove(string key);
+
+		/// <summary>
+		/// The count of items in the <see cref="IDataLoaderContext"/>.
+		/// </summary>
+		int Count { get; }
+
 		/// <summary>
 		/// Gets or sets a value for the given key.
 		/// If the key is not found, null is returned.
 		/// </summary>
 		/// <param name="key">Key</param>
 		/// <returns>The value associated to the key when available; null otherwise.</returns>
-		new object this[string key] { get; set; }
+		object this[string key] { get; set; }
 
 		/// <inheritdoc cref="IReadOnlyDictionary{TKey, TValue}.Keys"/>
-		/// <remarks>
-		/// We hide <see cref="IDictionary{TKey, TValue}.Keys"/> because it's mutable and we want an immutable collection of keys.
-		/// </remarks>
-		new IEnumerable<string> Keys { get; }
+		IEnumerable<string> Keys { get; }
 
 		/// <inheritdoc cref="IReadOnlyDictionary{TKey, TValue}.Values"/>
-		/// <remarks>
-		/// We hide <see cref="IDictionary{TKey, TValue}.Values"/> because it's mutable and we want an immutable collection of values.
-		/// </remarks>
-		new IEnumerable<object> Values { get; }
+		IEnumerable<object> Values { get; }
+
+		/// <inheritdoc cref="IReadOnlyDictionary{TKey, TValue}.ContainsKey(TKey)"/>
+		bool ContainsKey(string key);
+
+		/// <inheritdoc cref="IReadOnlyDictionary{TKey, TValue}.TryGetValue(TKey, out TValue)"/>
+		bool TryGetValue(string key, out object value);
+
+		/// <summary>
+		/// Removes all items from the <see cref="IDataLoaderContext"/>.
+		/// </summary>
+		void Clear();
 	}
 }

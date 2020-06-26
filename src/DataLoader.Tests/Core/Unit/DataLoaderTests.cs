@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Chinook.DataLoader;
 using Xunit;
 
-namespace Chinook.DataLoader.Tests
+namespace Tests.Core.Unit
 {
 	public class DataLoaderTests
 	{
@@ -120,6 +121,99 @@ namespace Chinook.DataLoader.Tests
 			void OnStateChanged(IDataLoader dataLoader, IDataLoaderState newState)
 			{
 				states.Add(newState);
+			}
+		}
+
+		[Fact]
+		public async Task SequenceIds_are_generated_correctly()
+		{
+			// Test that SequenceIds are generate like the following: 0, 1, 2, 3, etc.
+
+			var ct = CancellationToken.None;
+			var ids = new List<int>();
+			var dataLoader = new DataLoader("sut", new DelegatedDataLoaderStrategy(Load), DataLoaderConcurrentMode.CancelPrevious, s => false);
+
+			await dataLoader.Load(ct);
+
+			Assert.Single(ids);
+			Assert.Equal(0, ids[0]);
+
+			await dataLoader.Load(ct);
+
+			Assert.Equal(2, ids.Count);
+			Assert.Equal(0, ids[0]);
+			Assert.Equal(1, ids[1]);
+
+			var trigger = new ManualDataLoaderTrigger();
+			dataLoader.AddTrigger(trigger);
+			trigger.Trigger();
+
+			Assert.Equal(3, ids.Count);
+			Assert.Equal(0, ids[0]);
+			Assert.Equal(1, ids[1]);
+			Assert.Equal(2, ids[2]);
+
+			Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
+			{
+				ids.Add(request.SequenceId);
+
+				return Task.FromResult<object>(null);
+			}
+		}
+
+		[Fact]
+		/// <summary>
+		/// Tests that values added in <see cref="IDataLoaderRequest.Context"/> from the Load method are still available in next Load methods.
+		/// </summary>
+		public async Task Context_values_from_load_are_kept_across_loads()
+		{
+			var ct = CancellationToken.None;
+			var dataLoader = new DataLoader("sut", new DelegatedDataLoaderStrategy(Load), DataLoaderConcurrentMode.CancelPrevious, s => false);
+
+			await dataLoader.Load(ct);
+
+			Assert.True(dataLoader.State.Request.Context.ContainsKey("0"));
+
+			await dataLoader.Load(ct);
+
+			Assert.True(dataLoader.State.Request.Context.ContainsKey("0"));
+			Assert.True(dataLoader.State.Request.Context.ContainsKey("1"));
+
+			Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
+			{
+				for (int i = 0; i < request.SequenceId; i++)
+				{
+					Assert.True(request.Context.ContainsKey(i.ToString()));
+				}
+
+				var key = request.SequenceId.ToString();
+				request.Context.Add(key, key);
+
+				return Task.FromResult<object>(null);
+			}
+		}
+
+		[Fact]
+		/// <summary>
+		/// Tests that values added in <see cref="IDataLoaderRequest.Context"/> from the <see cref="IDataLoaderTrigger.LoadRequested"/> are not available in next Load methods.
+		/// </summary>
+		public async Task Context_values_from_trigger_are_not_kept_across_loads()
+		{
+			var ct = CancellationToken.None;
+			var dataLoader = new DataLoader("sut", new DelegatedDataLoaderStrategy(Load), DataLoaderConcurrentMode.CancelPrevious, s => false);
+
+			await dataLoader.Load(ct, new DataLoaderContext(new Dictionary<string, object> { { "first", null } }));
+
+			Assert.True(dataLoader.State.Request.Context.ContainsKey("first"));
+
+			await dataLoader.Load(ct, new DataLoaderContext(new Dictionary<string, object> { { "second", null } }));
+
+			Assert.False(dataLoader.State.Request.Context.ContainsKey("first"));
+			Assert.True(dataLoader.State.Request.Context.ContainsKey("second"));
+
+			Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
+			{
+				return Task.FromResult<object>(null);
 			}
 		}
 	}
