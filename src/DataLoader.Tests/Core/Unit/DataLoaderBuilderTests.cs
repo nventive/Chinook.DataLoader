@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Chinook.DataLoader;
 using Xunit;
 
-namespace Chinook.DataLoader.Tests.Core.Unit
+namespace Tests.Core.Unit
 {
 	public class DataLoaderBuilderTests
 	{

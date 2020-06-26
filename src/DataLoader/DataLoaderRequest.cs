@@ -7,6 +7,7 @@ namespace Chinook.DataLoader
 	/// <summary>
 	/// This is a default implementation of <see cref="IDataLoaderRequest"/>.
 	/// </summary>
+	[Preserve(AllMembers = true)]
 	public class DataLoaderRequest : IDataLoaderRequest
 	{
 		/// <summary>

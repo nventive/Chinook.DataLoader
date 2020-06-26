@@ -12,7 +12,7 @@ using Xunit.Abstractions;
 using Xunit.Extensions;
 using Xunit.Sdk;
 
-namespace Chinook.DataLoader.Tests
+namespace Tests.DynamicMvvm.Integration
 {
 	public class ViewModelTests
 	{

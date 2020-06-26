@@ -4,7 +4,7 @@
     <TargetFramework>net461</TargetFramework>
     <IsPackable>false</IsPackable>
 		<AssemblyName>Chinook.DataLoader.Tests</AssemblyName>
-    <RootNamespace>Chinook.DataLoader.Tests</RootNamespace>
+    <RootNamespace>Tests</RootNamespace>
 		<LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
