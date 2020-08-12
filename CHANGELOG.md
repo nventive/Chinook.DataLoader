@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 ### Changed
-
+[#24] Update Android target to 10.0
 ### Deprecated
 
 ### Removed
