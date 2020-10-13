@@ -195,6 +195,11 @@ public class MyViewModel : ViewModelBase
 }
 ```
 
+### Code Snippets
+
+You can install the Visual Studio Extension [Chinook Snippets](https://marketplace.visualstudio.com/items?itemName=nventivecorp.ChinookSnippets) and use code snippets to quickly generate data loaders when using [Chinook.DynamicMvvm](https://github.com/nventive/Chinook.DynamicMvvm).
+All snippets related to `IDataLoader` start with `ckdl`.
+
 ## Changelog
 
 Please consult the [CHANGELOG](CHANGELOG.md) for more information about version
