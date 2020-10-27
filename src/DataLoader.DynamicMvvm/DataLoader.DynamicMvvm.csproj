@@ -12,7 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="0.1.0-dev.59" />
+        <PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="0.3.0-dev.28" />
     </ItemGroup>
 
     <ItemGroup>

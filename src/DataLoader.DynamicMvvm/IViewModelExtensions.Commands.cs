@@ -21,14 +21,14 @@ namespace Chinook.DynamicMvvm
 		/// <param name="viewModel"><see cref="IViewModel"/></param>
 		/// <param name="dataLoader"><see cref="IDataLoader"/> to refresh</param>
 		/// <param name="name">Command name</param>
-		/// <param name="decorator">Command decorator</param>
+		/// <param name="configure">The optional func to configure the command builder.</param>
 		/// <returns><see cref="IDynamicCommand"/></returns>
 		public static IDynamicCommand GetCommandFromDataLoaderRefresh(
 			this IViewModel viewModel,
 			IDataLoader dataLoader,
-			Func<IDynamicCommandStrategy, IDynamicCommandStrategy> decorator = null,
+			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandFactory().CreateFromTask(n, ct => RefreshDataLoader(ct, dataLoader), new DynamicCommandStrategyDecorator(decorator)));
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, ct => RefreshDataLoader(ct, dataLoader)), configure);
 
 		private static async Task RefreshDataLoader(CancellationToken ct, IDataLoader dataLoader)
 		{
@@ -40,11 +40,11 @@ namespace Chinook.DynamicMvvm
 		}
 
 		/// <summary>
-		/// Gets the <see cref="IDynamicCommandFactory"/> for the <paramref name="viewModel"/>.
+		/// Gets the <see cref="IDynamicCommandBuilderFactory"/> for the <paramref name="viewModel"/>.
 		/// </summary>
 		/// <param name="viewModel">ViewModel</param>
 		/// <returns>IDynamicCommandFactory</returns>
-		private static IDynamicCommandFactory GetDynamicCommandFactory(this IViewModel viewModel)
-			=> viewModel.ServiceProvider.GetRequiredService<IDynamicCommandFactory>();
+		private static IDynamicCommandBuilderFactory GetDynamicCommandBuilderFactory(this IViewModel viewModel)
+			=> viewModel.ServiceProvider.GetRequiredService<IDynamicCommandBuilderFactory>();
 	}
 }
