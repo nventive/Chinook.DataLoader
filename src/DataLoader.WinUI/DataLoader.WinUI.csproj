@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+		<GenerateLibraryLayout>true</GenerateLibraryLayout>
+		<RootNamespace>Chinook.DataLoader</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Chinook.DataLoader.WinUI</AssemblyName>
+		<PackageId>Chinook.DataLoader.WinUI</PackageId>
+		<Description>Chinook.DataLoader for WinUI</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DefineConstants>HAS_WINUI</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview3.201113.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DataLoader.Abstractions\DataLoader.Abstractions.csproj" />
+		<ProjectReference Include="..\DataLoader\DataLoader.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\DataLoader.Uno\DataLoaderView.cs" />
+		<Compile Include="..\DataLoader.Uno\DataLoaderView.Properties.cs" />
+		<Compile Include="..\DataLoader.Uno\DataLoaderViewState.cs" />
+		<Compile Include="..\DataLoader.Uno\PreserveAttribute.cs" />
+	</ItemGroup>
+</Project>

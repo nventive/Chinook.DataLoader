@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+#if HAS_WINUI
+using Microsoft.UI.Xaml.Data;
+#else
 using Windows.UI.Xaml.Data;
+#endif
 
 namespace Chinook.DataLoader
 {
