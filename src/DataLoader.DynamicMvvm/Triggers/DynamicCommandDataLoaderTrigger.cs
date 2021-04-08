@@ -10,10 +10,11 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="IDynamicCommand"/> trigger.
 		/// </summary>
+		/// <typeparam name="TBuilder">The type of builder.</typeparam>
 		/// <param name="dataLoaderBuilder"><see cref="IDataLoaderBuilder"/></param>
 		/// <param name="command"><see cref="IDynamicCommand"/></param>
 		/// <returns><see cref="IDataLoaderBuilder"/></returns>
-		public static IDataLoaderBuilder TriggerOnCommandExecution(this IDataLoaderBuilder dataLoaderBuilder, IDynamicCommand command)
+		public static TBuilder TriggerOnCommandExecution<TBuilder>(this TBuilder dataLoaderBuilder, IDynamicCommand command) where TBuilder : IDataLoaderBuilder
 			=> dataLoaderBuilder.WithTrigger(new DynamicCommandDataLoaderTrigger(command));
 	}
 
