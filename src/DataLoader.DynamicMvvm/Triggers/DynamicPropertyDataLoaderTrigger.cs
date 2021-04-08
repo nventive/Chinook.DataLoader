@@ -10,10 +10,11 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="IDynamicProperty"/> trigger.
 		/// </summary>
+		/// <typeparam name="TBuilder">The type of builder.</typeparam>
 		/// <param name="dataLoaderBuilder"><see cref="IDataLoaderBuilder"/></param>
 		/// <param name="property"><see cref="IDynamicProperty"/></param>
 		/// <returns><see cref="IDataLoaderBuilder"/></returns>
-		public static IDataLoaderBuilder TriggerOnValueChanged(this IDataLoaderBuilder dataLoaderBuilder, IDynamicProperty property)
+		public static TBuilder TriggerOnValueChanged<TBuilder>(this TBuilder dataLoaderBuilder, IDynamicProperty property) where TBuilder : IDataLoaderBuilder
 			=> dataLoaderBuilder.WithTrigger(new DynamicPropertyDataLoaderTrigger(property));
 	}
 
