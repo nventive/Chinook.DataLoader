@@ -10,30 +10,33 @@ namespace Chinook.DataLoader
 	/// </summary>
 	public class DataLoaderBuilder : IDataLoaderBuilder
 	{
+		/// <summary>
+		/// Represents an empty <see cref="DataLoaderBuilder"/>.
+		/// </summary>
 		public static DataLoaderBuilder Empty => new DataLoaderBuilder();
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.Name"/>
 		public string Name { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.DataType"/>
 		public Type DataType { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.LoadMethod"/>
 		public DataLoaderDelegate LoadMethod { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.ConcurrentMode"/>
 		public DataLoaderConcurrentMode ConcurrentMode { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.DelegatingStrategies"/>
 		public IList<DelegatingDataLoaderStrategy> DelegatingStrategies { get; set; } = new List<DelegatingDataLoaderStrategy>();
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.TriggerProviders"/>
 		public IList<Func<IDataLoader, IDataLoaderTrigger>> TriggerProviders { get; set; } = new List<Func<IDataLoader, IDataLoaderTrigger>>();
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.EmptySelector"/>
 		public Func<IDataLoaderState, bool> EmptySelector { get; set; } = DefaultEmptySelector;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilder.Build"/>
 		public IDataLoader Build()
 		{
 			var strategy = GetStrategy(LoadMethod, DelegatingStrategies);
@@ -79,7 +82,7 @@ namespace Chinook.DataLoader
 	public class DataLoaderBuilder<TData> : DataLoaderBuilder, IDataLoaderBuilder<TData>
 	{
 		/// <summary>
-		/// Empty <see cref="DataLoaderBuilder{TData}"/>.
+		/// Represents an empty <see cref="DataLoaderBuilder{TData}"/>.
 		/// </summary>
 		public new static DataLoaderBuilder<TData> Empty => new DataLoaderBuilder<TData>();
 
@@ -88,12 +91,14 @@ namespace Chinook.DataLoader
 			DataType = typeof(TData);
 		}
 
+		/// <inheritdoc cref="IDataLoaderBuilder.EmptySelector"/>
 		Func<IDataLoaderState<TData>, bool> IDataLoaderBuilder<TData>.EmptySelector
 		{
 			get => base.EmptySelector;
 			set => base.EmptySelector = state => value(state.AsOf<TData>());
 		}
 
+		/// <inheritdoc cref="IDataLoaderBuilder.Build"/>
 		IDataLoader<TData> IDataLoaderBuilder<TData>.Build()
 		{
 			var dataLoader = base.Build();

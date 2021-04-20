@@ -17,13 +17,13 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DataLoaderBuilderFactory"/> class.
 		/// </summary>
-		/// <param name="defaultConfigure">Default builder configuration</param>
+		/// <param name="defaultConfigure">The default builder configuration.</param>
 		public DataLoaderBuilderFactory(Func<IDataLoaderBuilder, IDataLoaderBuilder> defaultConfigure = null)
 		{
 			_defaultConfigure = defaultConfigure;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilderFactory.Create" />
 		public IDataLoaderBuilder Create()
 		{
 			IDataLoaderBuilder builder = new DataLoaderBuilder();
@@ -36,7 +36,7 @@ namespace Chinook.DataLoader
 			return builder;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderBuilderFactory.CreateTyped{TData}" />
 		public IDataLoaderBuilder<TData> CreateTyped<TData>()
 		{
 			IDataLoaderBuilder<TData> builder = new DataLoaderBuilder<TData>();

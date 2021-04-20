@@ -36,19 +36,19 @@ namespace Chinook.DataLoader
 			_logger = this.Log();
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoader.Name"/>
 		public string Name { get; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoader.State"/>
 		public IDataLoaderState State => _state;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoader.StateChanged"/>
 		public event StateChangedEventHandler StateChanged;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoader.Triggers"/>
 		public IEnumerable<IDataLoaderTrigger> Triggers => _triggers;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoader.AddTrigger(IDataLoaderTrigger)"/>
 		public void AddTrigger(IDataLoaderTrigger trigger)
 		{
 			trigger = trigger ?? throw new ArgumentNullException(nameof(trigger));
@@ -57,7 +57,7 @@ namespace Chinook.DataLoader
 			trigger.LoadRequested += OnLoadRequested;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoader.RemoveTrigger(IDataLoaderTrigger)"/>
 		public void RemoveTrigger(IDataLoaderTrigger trigger)
 		{
 			trigger = trigger ?? throw new ArgumentNullException(nameof(trigger));
@@ -66,7 +66,7 @@ namespace Chinook.DataLoader
 			trigger.LoadRequested -= OnLoadRequested;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoader.Load(CancellationToken, IDataLoaderContext)"/>
 		public Task<object> Load(CancellationToken ct, IDataLoaderContext context = null)
 		{
 			context = context ?? new DataLoaderContext();
@@ -307,7 +307,9 @@ namespace Chinook.DataLoader
 			}
 		}
 
-		/// <inheritdoc />
+		/// <summary>
+		/// Disposes of every strategies and triggers this <see cref="DataLoader"/> had.
+		/// </summary>
 		public void Dispose()
 		{
 			foreach (var trigger in _triggers)

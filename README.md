@@ -173,6 +173,12 @@ To avoid seeing flickery transitions between the different visual states, the `D
 |    StateMinimumDuration    | The minimum duration a visual state should be in                                                                                |
 | StateChangingThrottleDelay | Delay before going to a new visual state (e.g. if the loading is really quick, you probably don't want to show a loading state) |
 
+```xml
+<dl:DataLoaderView Source="{Binding MyDataLoader}"
+                   StateMinimumDuration="0:0:1.5"
+                   StateChangingThrottleDelay="0:0:0.100" />
+```
+
 ### DynamicMvvm
 
 Extension methods are available on `Chinook.DynamicMvvm` to create data loaders with refresh commands.

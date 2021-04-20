@@ -14,7 +14,7 @@ namespace Chinook.DataLoader
 	public class DataLoaderState : IDataLoaderState
 	{
 		/// <summary>
-		/// Default <see cref="DataLoaderState"/>.
+		/// Represents the default <see cref="DataLoaderState"/>.
 		/// </summary>
 		public static DataLoaderState Default { get; } = new DataLoaderState();
 
@@ -25,7 +25,7 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DataLoaderState"/> class.
 		/// </summary>
-		/// <param name="source"><see cref="IDataLoaderState"/></param>
+		/// <param name="source">The <see cref="IDataLoaderState"/>.</param>
 		public DataLoaderState(IDataLoaderState source)
 		{
 			if (source is null)
@@ -41,22 +41,22 @@ namespace Chinook.DataLoader
 			IsEmpty = source.IsEmpty;
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderState.Request" />
 		public IDataLoaderRequest Request { get; private set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderState.Data" />
 		public object Data { get; private set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderState.Error" />
 		public Exception Error { get; private set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderState.IsLoading" />
 		public bool IsLoading { get; private set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderState.IsInitial" />
 		public bool IsInitial { get; private set; } = true;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderState.IsEmpty" />
 		public bool IsEmpty { get; private set; } = true;
 
 		public override string ToString()
@@ -141,8 +141,8 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Creates a new instance of <see cref="DataLoaderState"/>.
 		/// </summary>
-		/// <param name="request"><see cref="IDataLoaderRequest"/></param>
-		/// <returns><see cref="DataLoaderState"/></returns>
+		/// <param name="request">The <see cref="IDataLoaderRequest"/>.</param>
+		/// <returns>The <see cref="DataLoaderState"/>.</returns>
 		public DataLoaderState WithRequest(IDataLoaderRequest request)
 		{
 			return new DataLoaderState(this)
@@ -167,7 +167,7 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Creates a new instance of <see cref="DataLoaderState"/>.
 		/// </summary>
-		/// <param name="data">Data</param>
+		/// <param name="data">The data to populate the <see cref="DataLoaderState"/>.</param>
 		/// <returns><see cref="DataLoaderState"/></returns>
 		public DataLoaderState WithData(object data)
 		{
@@ -183,7 +183,7 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Creates a new instance of <see cref="DataLoaderState"/>.
 		/// </summary>
-		/// <param name="isEmpty">Is empty or not</param>
+		/// <param name="isEmpty">Represents if the <see cref="DataLoaderState"/> is empty or not.</param>
 		/// <returns><see cref="DataLoaderState"/></returns>
 		public DataLoaderState WithIsEmpty(bool isEmpty)
 		{
@@ -198,7 +198,7 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Creates a new instance of <see cref="DataLoaderState"/>.
 		/// </summary>
-		/// <param name="error">Error</param>
+		/// <param name="error">The error that <see cref="DataLoaderState"/> will show.</param>
 		/// <returns><see cref="DataLoaderState"/></returns>
 		public DataLoaderState WithError(Exception error)
 		{

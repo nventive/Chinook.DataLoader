@@ -32,9 +32,11 @@ namespace Chinook.DataLoader
 
 		/// <summary>
 		/// Tries to subscribe to the data produced by the <see cref="IDataLoader"/> in order to update its state without reloading the <see cref="IDataLoader"/>.
-		/// This makes sense when <typeparamref name="TData"/> is something observable such as <see cref="INotifyCollectionChanged"/>.
-		/// You should use this method with <see cref="DataLoaderBuilderFactory.DataLoaderBuilderFactory(Func{IDataLoaderBuilder, IDataLoaderBuilder})"/> so that all DataLoaders of <typeparamref name="TData"/> subscribe to their data automatically. 
 		/// </summary>
+		/// <remarks>
+		/// This makes sense when <typeparamref name="TData"/> is something observable such as <see cref="INotifyCollectionChanged"/>.
+		/// You should use this method with <see cref="DataLoaderBuilderFactory.DataLoaderBuilderFactory(Func{IDataLoaderBuilder, IDataLoaderBuilder})"/> so that all DataLoaders of <typeparamref name="TData"/> subscribe to their data automatically.
+		/// </remarks>
 		/// <typeparam name="TData">The type of data.</typeparam>
 		/// <param name="builder">The builder.</param>
 		/// <param name="subscribeToData">
@@ -42,7 +44,7 @@ namespace Chinook.DataLoader
 		/// Use that method to subscribe to events available on <typeparamref name="TData"/> and return an IDisposable that unsubscribes from events.
 		/// Your event handlers should leverage <see cref="IDataLoaderSetter.SetData(object)"/> and <see cref="IDataLoaderSetter.SetError(Exception)"/>.
 		/// </param>
-		/// <returns>The original builder.</returns>
+		/// <returns>The original <paramref name="builder"/>.</returns>
 		public static IDataLoaderBuilder TrySubscribeToData<TData>(
 			this IDataLoaderBuilder builder,
 			Func<TData, IDataLoaderSetter, IDisposable> subscribeToData)
@@ -84,8 +86,10 @@ namespace Chinook.DataLoader
 
 		/// <summary>
 		/// Subscribes to the data produced by the <see cref="IDataLoader"/> in order to update its state without reloading the <see cref="IDataLoader"/>.
-		/// This makes sense when <typeparamref name="TData"/> is something observable such as <see cref="INotifyCollectionChanged"/>.
 		/// </summary>
+		/// <remarks>
+		/// This makes sense when <typeparamref name="TData"/> is something observable such as <see cref="INotifyCollectionChanged"/>.
+		/// </remarks>
 		/// <typeparam name="TData">The type of data.</typeparam>
 		/// <param name="builder">The builder.</param>
 		/// <param name="subscribeToData">
