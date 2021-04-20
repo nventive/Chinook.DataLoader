@@ -18,11 +18,11 @@ namespace Chinook.DynamicMvvm
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will refresh
 		/// the specified <see cref="IDataLoader"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="dataLoader"><see cref="IDataLoader"/> to refresh</param>
-		/// <param name="name">Command name</param>
+		/// <param name="viewModel">The <see cref="IViewModel"/>.</param>
+		/// <param name="dataLoader">The <see cref="IDataLoader"/> to refresh.</param>
+		/// <param name="name">The command name.</param>
 		/// <param name="configure">The optional func to configure the command builder.</param>
-		/// <returns><see cref="IDynamicCommand"/></returns>
+		/// <returns>The <see cref="IDynamicCommand"/>.</returns>
 		public static IDynamicCommand GetCommandFromDataLoaderRefresh(
 			this IViewModel viewModel,
 			IDataLoader dataLoader,
@@ -42,8 +42,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the <see cref="IDynamicCommandBuilderFactory"/> for the <paramref name="viewModel"/>.
 		/// </summary>
-		/// <param name="viewModel">ViewModel</param>
-		/// <returns>IDynamicCommandFactory</returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/>.</param>
+		/// <returns>The <see cref="IDynamicCommandBuilderFactory"/>.</returns>
 		private static IDynamicCommandBuilderFactory GetDynamicCommandBuilderFactory(this IViewModel viewModel)
 			=> viewModel.ServiceProvider.GetRequiredService<IDynamicCommandBuilderFactory>();
 	}

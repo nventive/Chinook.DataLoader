@@ -43,7 +43,7 @@ namespace Chinook.DataLoader
 	/// <summary>
 	/// Typed version of <see cref="IDataLoaderState"/>.
 	/// </summary>
-	/// <typeparam name="TData"></typeparam>
+	/// <typeparam name="TData">The type of data.</typeparam>
 	public interface IDataLoaderState<out TData> : IDataLoaderState
 	{
 		/// <inheritdoc cref="IDataLoaderState.Data"/>

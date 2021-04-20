@@ -16,12 +16,12 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDataLoader"/> from a task.
 		/// </summary>
-		/// <typeparam name="TData">Returned type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="source">Task source</param>
-		/// <param name="configure">Configuration</param>
-		/// <param name="name">Name of the <see cref="IDataLoader"/></param>
-		/// <returns><see cref="IDataLoader"/></returns>
+		/// <typeparam name="TData">The type of data.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/>.</param>
+		/// <param name="source">The task source.</param>
+		/// <param name="configure">The optional configuration.</param>
+		/// <param name="name">The optional name of the <see cref="IDataLoader"/>.</param>
+		/// <returns>The <see cref="IDataLoader"/>.</returns>
 		public static IDataLoader<TData> GetDataLoader<TData>(
 			this IViewModel viewModel,
 			Func<CancellationToken, Task<TData>> source,
@@ -32,12 +32,12 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDataLoader"/> from a task.
 		/// </summary>
-		/// <typeparam name="TData">Returned type</typeparam>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="source">Task source</param>
-		/// <param name="configure">Configuration</param>
-		/// <param name="name">Name of the <see cref="IDataLoader"/></param>
-		/// <returns><see cref="IDataLoader"/></returns>
+		/// <typeparam name="TData">The type of data.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/>.</param>
+		/// <param name="source">The task source.</param>
+		/// <param name="configure">The optional configuration.</param>
+		/// <param name="name">The optional name of the <see cref="IDataLoader"/>.</param>
+		/// <returns>The <see cref="IDataLoader"/>.</returns>
 		public static IDataLoader<TData> GetDataLoader<TData>(
 			this IViewModel viewModel,
 			DataLoaderDelegate<TData> source,
@@ -64,10 +64,10 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets or creates a <see cref="IDataLoader"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <param name="name">Name of the <see cref="IDataLoader"/></param>
-		/// <param name="factory">Factory</param>
-		/// <returns><see cref="IDataLoader"/></returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/>.</param>
+		/// <param name="name">The name of the <see cref="IDataLoader"/>.</param>
+		/// <param name="factory">The <see cref="IDataLoader"/> Factory.</param>
+		/// <returns>The <see cref="IDataLoader"/>.</returns>
 		public static IDataLoader GetOrCreateDataLoader(
 			this IViewModel viewModel,
 			string name,
@@ -87,8 +87,8 @@ namespace Chinook.DynamicMvvm
 		/// <summary>
 		/// Gets the <see cref="IDataLoaderBuilderFactory"/> for the <paramref name="viewModel"/>.
 		/// </summary>
-		/// <param name="viewModel"><see cref="IViewModel"/></param>
-		/// <returns><see cref="IDataLoaderBuilderFactory"/></returns>
+		/// <param name="viewModel">The <see cref="IViewModel"/>.</param>
+		/// <returns>The <see cref="IDataLoaderBuilderFactory"/>.</returns>
 		private static IDataLoaderBuilderFactory GetDataLoaderBuilderFactory(this IViewModel viewModel)
 			=> viewModel.ServiceProvider.GetRequiredService<IDataLoaderBuilderFactory>();
 	}

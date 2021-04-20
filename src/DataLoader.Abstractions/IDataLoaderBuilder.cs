@@ -41,13 +41,13 @@ namespace Chinook.DataLoader
 		IList<DelegatingDataLoaderStrategy> DelegatingStrategies { get; set; }
 
 		/// <summary>
-		/// The triggers that will load the <see cref="IDataLoader"/>.
+		/// The list of triggers that will reload the <see cref="IDataLoader"/>.
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		IList<Func<IDataLoader, IDataLoaderTrigger>> TriggerProviders { get; set; }
 
 		/// <summary>
-		/// The method to invoke to determine wheter a <see cref="IDataLoaderState"/> is considered empty.
+		/// The method to invoke to determine whether a <see cref="IDataLoaderState"/> is considered empty.
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		Func<IDataLoaderState, bool> EmptySelector { get; set; }
