@@ -10,7 +10,7 @@ namespace Chinook.DataLoader
 	/// A <see cref="IDataLoader"/> is a state machine responsible of loading data asynchronously.
 	/// </summary>
 	/// <remarks>
-	/// Loading data is a multiple states action. Each state is registered in its <see cref="IDataLoaderState"/>.
+	/// Loading data goes through multiple states, each state being represented by a<see cref="IDataLoaderState"/>.
 	/// Loading data can be triggered by using <see cref="IDataLoaderTrigger"/>.
 	/// </remarks>
 	public interface IDataLoader : IDisposable

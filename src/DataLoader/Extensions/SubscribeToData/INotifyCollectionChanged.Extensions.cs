@@ -8,17 +8,17 @@ using Chinook.DataLoader.SubscribeToData;
 namespace System.Collections.Specialized
 {
 	/// <summary>
-	/// Extensions on <see cref="INotifyCollectionChanged"/>.
+	/// This class offers extensions on <see cref="INotifyCollectionChanged"/>.
 	/// </summary>
 	public static class NotifyCollectionChangedExtensions
 	{
 		/// <summary>
-		/// Subscribes to the data changed event of a <see cref="IDataLoader"/>.
+		/// Subscribes to CollectionChanged to automatically set a <see cref="IDataLoader"/>'s data.
 		/// </summary>
-		/// <param name="collection">The data source binded to the <see cref="IDataLoader"/>.</param>
+		/// <param name="collection">The <see cref="INotifyCollectionChanged"/> data.</param>
 		/// <param name="setter">The <see cref="IDataLoader"/> to be set.</param>
 		/// <returns>The <see cref="IDisposable"/> object.</returns>
-		public static IDisposable SubscribeToUpdateDataLoader(this INotifyCollectionChanged collection, IDataLoaderSetter setter)
+		public static IDisposable SubscribeToCollectionChanged(this INotifyCollectionChanged collection, IDataLoaderSetter setter)
 		{
 			collection.CollectionChanged += OnCollectionChanged;
 

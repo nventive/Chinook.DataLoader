@@ -41,7 +41,7 @@ namespace Chinook.DataLoader
 		IList<DelegatingDataLoaderStrategy> DelegatingStrategies { get; set; }
 
 		/// <summary>
-		/// The list of triggers that will reload the <see cref="IDataLoader"/>.
+		/// The triggers that will load the <see cref="IDataLoader"/>.
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		IList<Func<IDataLoader, IDataLoaderTrigger>> TriggerProviders { get; set; }

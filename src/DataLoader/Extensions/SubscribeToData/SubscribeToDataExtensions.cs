@@ -26,7 +26,7 @@ namespace Chinook.DataLoader
 
 			IDisposable Subscribe(TData data, IDataLoaderSetter setter)
 			{
-				return data.SubscribeToUpdateDataLoader(setter);
+				return data.SubscribeToCollectionChanged(setter);
 			}
 		}
 

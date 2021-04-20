@@ -14,7 +14,7 @@ namespace Chinook.DataLoader
 	public class DataLoaderState : IDataLoaderState
 	{
 		/// <summary>
-		/// Represents the default <see cref="DataLoaderState"/>.
+		/// Gets the default <see cref="DataLoaderState"/>.
 		/// </summary>
 		public static DataLoaderState Default { get; } = new DataLoaderState();
 
@@ -183,7 +183,7 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Creates a new instance of <see cref="DataLoaderState"/>.
 		/// </summary>
-		/// <param name="isEmpty">Represents if the <see cref="DataLoaderState"/> is empty or not.</param>
+		/// <param name="isEmpty">The flag indicating whether the <see cref="DataLoaderState"/> is empty.</param>
 		/// <returns><see cref="DataLoaderState"/></returns>
 		public DataLoaderState WithIsEmpty(bool isEmpty)
 		{

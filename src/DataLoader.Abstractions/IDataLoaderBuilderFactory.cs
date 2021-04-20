@@ -11,11 +11,9 @@ namespace Chinook.DataLoader
 	/// </summary>
 	/// <remarks>
 	/// The goal of implementors should be to inject default properties when creating builders.
-	/// </remarks>
-	/// <example>
 	/// If you want all the <see cref="IDataLoader"/>s of your app to use the <see cref="DataLoaderConcurrentMode.DiscardNew"/> mode,
 	/// you should leverage the <see cref="IDataLoaderBuilderFactory"/> to inject that property in all <see cref="IDataLoaderBuilder"/> instances.
-	/// </example>
+	/// </remarks>
 	public interface IDataLoaderBuilderFactory
 	{
 		/// <summary>

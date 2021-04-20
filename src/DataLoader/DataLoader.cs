@@ -308,7 +308,7 @@ namespace Chinook.DataLoader
 		}
 
 		/// <summary>
-		/// Disposes of every strategies and triggers this <see cref="DataLoader"/> had.
+		/// Disposes of every strategy and trigger this <see cref="DataLoader"/> had.
 		/// </summary>
 		public void Dispose()
 		{
