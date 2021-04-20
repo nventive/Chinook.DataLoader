@@ -8,8 +8,10 @@ namespace Chinook.DataLoader.DisposeWithNextLoad
 	/// This class is a container of <see cref="IDisposable"/> objects that automatically disposes its items when necessary.
 	/// It associates each disposable object with the <see cref="IDataLoaderRequest"/> that created them and keeps track of that request.
 	/// When items from a newer request are added, the items associated to a previous <see cref="IDataLoaderRequest"/> are disposed.
-	/// This class is not thread-safe on its own, but <see cref="IDataLoader"/> doesn't allow concurrent loads so it's safe to use in that context.
 	/// </summary>
+	/// <remarks>
+	/// This class is not thread-safe on its own, but <see cref="IDataLoader"/> doesn't allow concurrent loads so it's safe to use in that context.
+	/// </remarks>
 	public class SequenceDisposableGroup : IDisposable
 	{
 		private readonly List<IDisposable> _disposables = new List<IDisposable>();

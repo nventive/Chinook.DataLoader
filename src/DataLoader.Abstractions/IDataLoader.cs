@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace Chinook.DataLoader
 {
 	/// <summary>
-	/// A <see cref="IDataLoader"/> is a state machine responsible of loading
-	/// data and representing it into its <see cref="IDataLoaderState"/>.
-	/// The load can be triggered by using <see cref="IDataLoaderTrigger"/>.
+	/// A <see cref="IDataLoader"/> is a state machine responsible of loading data asynchronously.
 	/// </summary>
+	/// <remarks>
+	/// Loading data goes through multiple states, each state being represented by a<see cref="IDataLoaderState"/>.
+	/// Loading data can be triggered by using <see cref="IDataLoaderTrigger"/>.
+	/// </remarks>
 	public interface IDataLoader : IDisposable
 	{
 		/// <summary>
@@ -31,8 +33,8 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Manually loads data from the <see cref="IDataLoader"/>.
 		/// </summary>
-		/// <param name="ct"></param>
-		/// <param name="context">Optional context.</param>
+		/// <param name="ct">The <see cref="CancellationToken"/>.</param>
+		/// <param name="context">The optional <see cref="IDataLoaderContext"/>.</param>
 		/// <returns>The loaded data.</returns>
 		Task<object> Load(CancellationToken ct, IDataLoaderContext context = null);
 
@@ -55,9 +57,9 @@ namespace Chinook.DataLoader
 	}
 
 	/// <summary>
-	/// Typed version of <see cref="IDataLoader"/>.
+	/// The typed version of <see cref="IDataLoader"/>.
 	/// </summary>
-	/// <typeparam name="TData"></typeparam>
+	/// <typeparam name="TData">The type of data.</typeparam>
 	public interface IDataLoader<TData> : IDataLoader
 	{
 		/// <inheritdoc cref="IDataLoader.State"/>

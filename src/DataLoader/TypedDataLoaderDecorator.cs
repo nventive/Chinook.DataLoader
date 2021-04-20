@@ -9,7 +9,7 @@ namespace Chinook.DataLoader
 	/// <summary>
 	/// This class decorates an <see cref="IDataLoader"/> with the <see cref="IDataLoader{TData}"/> interface.
 	/// </summary>
-	/// <typeparam name="TData"></typeparam>
+	/// <typeparam name="TData">Type of data</typeparam>
 	public class TypedDataLoaderDecorator<TData> : IDataLoader<TData>
 	{
 		// This class is a decorator and shouldn't have any logic.
@@ -22,10 +22,10 @@ namespace Chinook.DataLoader
 
 		public IDataLoader InnerDataLoader { get; }
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader{TData}.State" />
 		IDataLoaderState<TData> IDataLoader<TData>.State => InnerDataLoader.State.AsOf<TData>();
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader{TData}.Load(CancellationToken, IDataLoaderContext)" />
 		async Task<TData> IDataLoader<TData>.Load(CancellationToken ct, IDataLoaderContext context)
 		{
 			var result = await InnerDataLoader.Load(ct, context);
@@ -34,32 +34,32 @@ namespace Chinook.DataLoader
 
 		#region Non-Generic Decoration
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader.Name" />
 		public string Name => InnerDataLoader.Name;
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader.State" />
 		public IDataLoaderState State => InnerDataLoader.State;
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader.Triggers" />
 		public IEnumerable<IDataLoaderTrigger> Triggers => InnerDataLoader.Triggers;
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader.StateChanged" />
 		public event StateChangedEventHandler StateChanged
 		{
 			add => InnerDataLoader.StateChanged += value;
 			remove => InnerDataLoader.StateChanged -= value;
 		}
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader.AddTrigger(IDataLoaderTrigger)" />
 		public void AddTrigger(IDataLoaderTrigger trigger) => InnerDataLoader.AddTrigger(trigger);
 
-		/// <inheritdoc/>
+		/// <inheritdoc />
 		public void Dispose() => InnerDataLoader.Dispose();
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader.Load(CancellationToken, IDataLoaderContext)" />
 		public Task<object> Load(CancellationToken ct, IDataLoaderContext context = null) => InnerDataLoader.Load(ct, context);
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoader.RemoveTrigger(IDataLoaderTrigger)" />
 		public void RemoveTrigger(IDataLoaderTrigger trigger) => InnerDataLoader.RemoveTrigger(trigger);
 		#endregion
 	}

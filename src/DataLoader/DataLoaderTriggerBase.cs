@@ -18,10 +18,10 @@ namespace Chinook.DataLoader
 			Name = name ?? GetType().Name;
 		}
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoaderTrigger.Name" />
 		public string Name { get; }
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoaderTrigger.LoadRequested" />
 		public event LoadRequestedEventHandler LoadRequested;
 
 		/// <summary>

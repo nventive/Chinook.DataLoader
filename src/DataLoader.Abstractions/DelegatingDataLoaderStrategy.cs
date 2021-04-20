@@ -13,7 +13,7 @@ namespace Chinook.DataLoader
 	public abstract class DelegatingDataLoaderStrategy : IDataLoaderStrategy
 	{
 		/// <summary>
-		/// Inner <see cref="IDataLoaderStrategy"/>
+		/// Inner <see cref="IDataLoaderStrategy"/>.
 		/// </summary>
 		public IDataLoaderStrategy InnerStrategy { get; set; }
 

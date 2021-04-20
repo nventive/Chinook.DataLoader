@@ -12,8 +12,8 @@ namespace Chinook.DataLoader
 		/// </summary>
 		/// <typeparam name="TBuilder">The type of builder.</typeparam>
 		/// <param name="dataLoaderBuilder"><see cref="IDataLoaderBuilder"/></param>
-		/// <param name="property"><see cref="IDynamicProperty"/></param>
-		/// <returns><see cref="IDataLoaderBuilder"/></returns>
+		/// <param name="property">The <see cref="IDynamicProperty"/> that this <see cref="IDataLoaderBuilder"/> is going to listen.</param>
+		/// <returns>The original <see cref="IDataLoaderBuilder"/>.</returns>
 		public static TBuilder TriggerOnValueChanged<TBuilder>(this TBuilder dataLoaderBuilder, IDynamicProperty property) where TBuilder : IDataLoaderBuilder
 			=> dataLoaderBuilder.WithTrigger(new DynamicPropertyDataLoaderTrigger(property));
 	}
@@ -42,7 +42,7 @@ namespace Chinook.DataLoader
 			RaiseLoadRequested();
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="DataLoaderTriggerBase.Dispose"/>
 		public override void Dispose()
 		{
 			base.Dispose();

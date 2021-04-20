@@ -47,6 +47,9 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="DelegatingDataLoaderStrategy"/> in <see cref="IDataLoaderBuilder.DelegatingStrategies"/>.
 		/// </summary>
+		/// <typeparam name="TBuilder">Any type implementing <see cref="IDataLoaderBuilder"/>.</typeparam>
+		/// <param name="builder">The <see cref="IDataLoaderBuilder"/> reference.</param>
+		/// <param name="delegatingStrategy">The new <see cref="DelegatingDataLoaderStrategy"/> to add.</param>
 		public static TBuilder WithStrategy<TBuilder>(this TBuilder builder, DelegatingDataLoaderStrategy delegatingStrategy) where TBuilder : IDataLoaderBuilder
 		{
 			builder.DelegatingStrategies.Add(delegatingStrategy);
@@ -56,6 +59,8 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="IDataLoaderTrigger"/> in <see cref="IDataLoaderBuilder.TriggerProviders"/>.
 		/// </summary>
+		/// <param name="builder">The <see cref="IDataLoaderBuilder"/> reference.</param>
+		/// <param name="triggerProvider">The new <see cref="IDataLoaderTrigger"/> to add.</param>
 		public static IDataLoaderBuilder WithTrigger(this IDataLoaderBuilder builder, Func<IDataLoader, IDataLoaderTrigger> triggerProvider)
 		{
 			builder.TriggerProviders.Add(triggerProvider);
@@ -65,6 +70,9 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="IDataLoaderTrigger"/> in <see cref="IDataLoaderBuilder.TriggerProviders"/>.
 		/// </summary>
+		/// <typeparam name="TData">The type of data.</typeparam>
+		/// <param name="builder">The <see cref="IDataLoaderBuilder"/> reference.</param>
+		/// <param name="triggerProvider">The new <see cref="IDataLoaderTrigger"/> to add.</param>
 		public static IDataLoaderBuilder<TData> WithTrigger<TData>(this IDataLoaderBuilder<TData> builder, Func<IDataLoader<TData>, IDataLoaderTrigger> triggerProvider)
 		{
 			builder.TriggerProviders.Add(GetTriggerProvider);
@@ -79,6 +87,9 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="IDataLoaderTrigger"/> in <see cref="IDataLoaderBuilder.TriggerProviders"/>.
 		/// </summary>
+		/// <typeparam name="TBuilder">Any type implementing <see cref="IDataLoaderBuilder"/>.</typeparam>
+		/// <param name="builder">The <see cref="IDataLoaderBuilder"/> reference.</param>
+		/// <param name="trigger">The new <see cref="IDataLoaderTrigger"/> to add.</param>
 		public static TBuilder WithTrigger<TBuilder>(this TBuilder builder, IDataLoaderTrigger trigger) where TBuilder : IDataLoaderBuilder
 		{
 			builder.TriggerProviders.Add(GetTrigger);

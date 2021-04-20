@@ -47,7 +47,7 @@ namespace Chinook.DataLoader
 		IList<Func<IDataLoader, IDataLoaderTrigger>> TriggerProviders { get; set; }
 
 		/// <summary>
-		/// The method to invoke to determine wheter a <see cref="IDataLoaderState"/> is considered empty.
+		/// The method to invoke to determine whether a <see cref="IDataLoaderState"/> is considered empty.
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		Func<IDataLoaderState, bool> EmptySelector { get; set; }

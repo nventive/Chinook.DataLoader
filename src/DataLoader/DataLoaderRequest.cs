@@ -24,13 +24,13 @@ namespace Chinook.DataLoader
 			Context = new MergedDataLoaderContext(triggerContext, dataLoaderContextValues);
 		}
 
-		/// <inheritdoc/>
+		/// <inheritdoc cref="IDataLoaderRequest.SequenceId" />
 		public int SequenceId { get; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderRequest.SourceTrigger" />
 		public IDataLoaderTrigger SourceTrigger { get; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IDataLoaderRequest.Context" />
 		public IDataLoaderContext Context { get; }
 
 		/// <inheritdoc />

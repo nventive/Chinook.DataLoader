@@ -20,15 +20,14 @@ namespace Chinook.DataLoader
 		bool Remove(string key);
 
 		/// <summary>
-		/// The count of items in the <see cref="IDataLoaderContext"/>.
+		/// Gets the count of items in the <see cref="IDataLoaderContext"/>.
 		/// </summary>
 		int Count { get; }
 
 		/// <summary>
 		/// Gets or sets a value for the given key.
-		/// If the key is not found, null is returned.
 		/// </summary>
-		/// <param name="key">Key</param>
+		/// <param name="key">The key name of the desired item.</param>
 		/// <returns>The value associated to the key when available; null otherwise.</returns>
 		object this[string key] { get; set; }
 

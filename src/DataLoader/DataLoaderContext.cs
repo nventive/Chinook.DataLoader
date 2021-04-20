@@ -16,7 +16,7 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DataLoaderContext"/> class.
 		/// </summary>
-		/// <param name="values">Values</param>
+		/// <param name="values">The values.</param>
 		public DataLoaderContext(IDictionary<string, object> values = null)
 		{
 			_values = values ?? new Dictionary<string, object>();
