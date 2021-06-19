@@ -236,7 +236,7 @@ namespace Chinook.DataLoader
 		{
 			var safeState = newState ?? DataLoaderState.Default;
 
-			State = CreateDataLoaderViewState(safeState);
+			SetState(CreateDataLoaderViewState(safeState));
 
 			var dataVisualState = GetDataVisualState(safeState);
 			GoToState(DataVisualGroup, dataVisualState);
@@ -273,6 +273,18 @@ namespace Chinook.DataLoader
 					_logger.LogTrace($"Saved VisualStates to '{combinedVisualState}'. (This control isn't loaded yet.)");
 				}
 			}
+		}
+
+		/// <summary>
+		/// Sets the <see cref="State"/>.
+		/// </summary>
+		/// <remarks>
+		/// This method is virtual to allow creation of more strongly typed version of DataLoaderView to allow usage of x:Bind inside the ContentTemplate.
+		/// </remarks>
+		/// <param name="state">The <see cref="DataLoaderViewState"/> to set as the current state.</param>
+		protected virtual void SetState(DataLoaderViewState state)
+		{
+			State = state;
 		}
 
 		/// <summary>
