@@ -5,17 +5,29 @@ using Chinook.DynamicMvvm;
 
 namespace Chinook.DataLoader
 {
+	[Flags]
+	public enum CommandTriggerOptions
+	{
+		TriggerBeforeCommandExecution = 0b01,
+		TriggerAfterCommandExecution = 0b10
+	}
+
 	public static class DynamicCommandDataLoaderExtensions
 	{
 		/// <summary>
 		/// Adds a <see cref="IDynamicCommand"/> trigger.
 		/// </summary>
 		/// <typeparam name="TBuilder">The type of builder.</typeparam>
-		/// <param name="dataLoaderBuilder"><see cref="IDataLoaderBuilder"/></param>
-		/// <param name="command"><see cref="IDynamicCommand"/></param>
+		/// <param name="dataLoaderBuilder">This builder.</param>
+		/// <param name="command">The dynamic command causing the triggers.</param>
+		/// <param name="triggerExecution">The trigger options.</param>
 		/// <returns><see cref="IDataLoaderBuilder"/></returns>
-		public static TBuilder TriggerOnCommandExecution<TBuilder>(this TBuilder dataLoaderBuilder, IDynamicCommand command) where TBuilder : IDataLoaderBuilder
-			=> dataLoaderBuilder.WithTrigger(new DynamicCommandDataLoaderTrigger(command));
+		public static TBuilder TriggerOnCommandExecution<TBuilder>(
+			this TBuilder dataLoaderBuilder,
+			IDynamicCommand command,
+			CommandTriggerOptions triggerExecution = CommandTriggerOptions.TriggerBeforeCommandExecution)
+			where TBuilder : IDataLoaderBuilder
+			=> dataLoaderBuilder.WithTrigger(new DynamicCommandDataLoaderTrigger(command, triggerExecution));
 	}
 
 	/// <summary>
@@ -25,24 +37,28 @@ namespace Chinook.DataLoader
 	public class DynamicCommandDataLoaderTrigger : DataLoaderTriggerBase
 	{
 		private readonly IDynamicCommand _command;
+		private readonly CommandTriggerOptions _triggerOptions;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DynamicCommandDataLoaderTrigger"/> class.
 		/// </summary>
-		/// <param name="command"><see cref="IDynamicCommand"/></param>
-		public DynamicCommandDataLoaderTrigger(IDynamicCommand command)
+		/// <param name="command">The dynamic command causing the triggers.</param>
+		/// <param name="triggerOptions">The trigger options.</param>
+		public DynamicCommandDataLoaderTrigger(IDynamicCommand command, CommandTriggerOptions triggerOptions)
 			: base(command?.Name)
 		{
 			_command = command ?? throw new ArgumentNullException(nameof(command));
+			_triggerOptions = triggerOptions;
 			_command.IsExecutingChanged += OnIsExecutingChanged;
 		}
 
 		private void OnIsExecutingChanged(object sender, EventArgs e)
 		{
-			if (_command.IsExecuting)
+			if ((_triggerOptions.HasFlag(CommandTriggerOptions.TriggerBeforeCommandExecution) && _command.IsExecuting)
+				|| (_triggerOptions.HasFlag(CommandTriggerOptions.TriggerAfterCommandExecution) && !_command.IsExecuting))
 			{
 				RaiseLoadRequested();
-			}
+			}			
 		}
 
 		/// <inheritdoc />
