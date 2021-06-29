@@ -10,6 +10,9 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="IDynamicProperty"/> trigger.
 		/// </summary>
+		/// <remarks>
+		/// The name of the trigger is the name of the <paramref name="property"/>.
+		/// </remarks>
 		/// <typeparam name="TBuilder">The type of builder.</typeparam>
 		/// <param name="dataLoaderBuilder"><see cref="IDataLoaderBuilder"/></param>
 		/// <param name="property">The <see cref="IDynamicProperty"/> that this <see cref="IDataLoaderBuilder"/> is going to listen.</param>
@@ -29,7 +32,7 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DynamicPropertyDataLoaderTrigger"/> class.
 		/// </summary>
-		/// <param name="property"></param>
+		/// <param name="property">The property from which changes are observed.</param>
 		public DynamicPropertyDataLoaderTrigger(IDynamicProperty property)
 			: base(property.Name)
 		{
