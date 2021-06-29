@@ -17,6 +17,9 @@ namespace Chinook.DataLoader
 		/// <summary>
 		/// Adds a <see cref="IDynamicCommand"/> trigger.
 		/// </summary>
+		/// <remarks>
+		/// The name of the trigger is the name of the <paramref name="command"/>.
+		/// </remarks>
 		/// <typeparam name="TBuilder">The type of builder.</typeparam>
 		/// <param name="dataLoaderBuilder">This builder.</param>
 		/// <param name="command">The dynamic command causing the triggers.</param>
