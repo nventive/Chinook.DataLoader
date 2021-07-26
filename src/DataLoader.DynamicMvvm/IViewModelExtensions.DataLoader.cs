@@ -37,7 +37,7 @@ namespace Chinook.DynamicMvvm
 		/// <param name="source">The task source.</param>
 		/// <param name="configure">The optional configuration.</param>
 		/// <param name="name">The optional name of the <see cref="IDataLoader"/>.</param>
-		/// <returns>The <see cref="IDataLoader"/>.</returns>
+		/// <returns>The <see cref="IDataLoader"/>. Null is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static IDataLoader<TData> GetDataLoader<TData>(
 			this IViewModel viewModel,
 			DataLoaderDelegate<TData> source,
@@ -45,6 +45,11 @@ namespace Chinook.DynamicMvvm
 			[CallerMemberName] string name = null
 		)
 		{
+			if (viewModel.IsDisposed)
+			{
+				return null;
+			}
+
 			return (IDataLoader<TData>)viewModel.GetOrCreateDataLoader(name, n =>
 			{
 				var builder = viewModel.GetDataLoaderBuilderFactory()
@@ -65,20 +70,25 @@ namespace Chinook.DynamicMvvm
 		/// Gets or creates a <see cref="IDataLoader"/>.
 		/// </summary>
 		/// <param name="viewModel">The <see cref="IViewModel"/>.</param>
-		/// <param name="name">The name of the <see cref="IDataLoader"/>.</param>
+		/// <param name="key">The key holding the <see cref="IDataLoader"/> in the containing <see cref="IViewModel"/>. This also serves as the default name of the <see cref="IDataLoader"/>.</param>
 		/// <param name="factory">The <see cref="IDataLoader"/> Factory.</param>
-		/// <returns>The <see cref="IDataLoader"/>.</returns>
+		/// <returns>The <see cref="IDataLoader"/>. Null is returned if the <see cref="IViewModel"/> is disposed.</returns>
 		public static IDataLoader GetOrCreateDataLoader(
 			this IViewModel viewModel,
-			string name,
+			string key,
 			Func<string, IDataLoader> factory
 		)
 		{
-			if (!viewModel.TryGetDisposable<IDataLoader>(name, out var dataLoader))
+			if (viewModel.IsDisposed)
 			{
-				dataLoader = factory(name);
+				return null;
+			}
 
-				viewModel.AddDisposable(dataLoader.Name, dataLoader);
+			if (!viewModel.TryGetDisposable<IDataLoader>(key, out var dataLoader))
+			{
+				dataLoader = factory(key);
+
+				viewModel.AddDisposable(key, dataLoader);
 			}
 
 			return dataLoader;

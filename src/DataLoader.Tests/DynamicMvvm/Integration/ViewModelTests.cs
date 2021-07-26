@@ -11,6 +11,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Xunit.Extensions;
 using Xunit.Sdk;
+using FluentAssertions;
 
 namespace Tests.DynamicMvvm.Integration
 {
@@ -23,6 +24,7 @@ namespace Tests.DynamicMvvm.Integration
 			var serviceCollection = new ServiceCollection();
 
 			serviceCollection.AddSingleton<IDataLoaderBuilderFactory, DataLoaderBuilderFactory>();
+			serviceCollection.AddSingleton<IDynamicCommandBuilderFactory, DynamicCommandBuilderFactory>();
 
 			_serviceProvider = serviceCollection.BuildServiceProvider();
 		}
@@ -34,6 +36,20 @@ namespace Tests.DynamicMvvm.Integration
 
 			Assert.Equal("MySuperTitles", vm.Titles.Name);
 			Assert.Equal(nameof(MyViewModel.Subtitles), vm.Subtitles.Name);
+		}
+
+		[Fact]
+		public void Extensions_return_null_when_VM_is_disposed()
+		{
+			var vm = new MyViewModel(_serviceProvider);
+
+			vm.Titles.Should().NotBeNull();
+			vm.RefreshTitles.Should().NotBeNull();
+
+			vm.Dispose();
+
+			vm.Titles.Should().BeNull();
+			vm.RefreshTitles.Should().BeNull();
 		}
 
 		private class MyViewModel : ViewModelBase
