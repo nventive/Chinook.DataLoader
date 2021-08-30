@@ -28,7 +28,7 @@ namespace Chinook.DynamicMvvm
 			IDataLoader dataLoader,
 			Func<IDynamicCommandBuilder, IDynamicCommandBuilder> configure = null,
 			[CallerMemberName] string name = null
-		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, ct => RefreshDataLoader(ct, dataLoader)), configure);
+		) => viewModel.GetOrCreateCommand(name, n => viewModel.GetDynamicCommandBuilderFactory().CreateFromTask(n, ct => RefreshDataLoader(ct, dataLoader), viewModel), configure);
 
 		private static async Task RefreshDataLoader(CancellationToken ct, IDataLoader dataLoader)
 		{
