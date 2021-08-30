@@ -16,7 +16,7 @@
     <PackageReference Include="xunit" Version="2.4.1" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
-		<PackageReference Include="Chinook.DynamicMvvm" Version="0.5.0-dev.59" />
+		<PackageReference Include="Chinook.DynamicMvvm" Version="0.7.0-dev.67" />
   </ItemGroup>
 
   <ItemGroup>
