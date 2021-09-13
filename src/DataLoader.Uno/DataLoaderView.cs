@@ -51,6 +51,7 @@ namespace Chinook.DataLoader
 		private IDataLoaderState _lastState;
 		private DataLoaderViewState _lastViewState;
 		private bool _isLoaded;
+		private bool _isSubscribedToSource;
 		private bool _isVisualStateRefreshRequired;
 		private DateTimeOffset _lastUpdate = DateTimeOffset.MinValue; // This is a timestamp of when the last UI update was done.
 		private TimeSpan _stateMinDuration = TimeSpan.Zero; // This is the non-"UI thread dependent" version of StateMinimumDuration.
@@ -65,7 +66,7 @@ namespace Chinook.DataLoader
 
 			Loaded += OnLoaded;
 			Unloaded += OnUnloaded;
-		}		
+		}
 
 		protected override void OnApplyTemplate()
 		{
@@ -76,12 +77,24 @@ namespace Chinook.DataLoader
 
 		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
+			if (!_isSubscribedToSource && _dataLoader != null)
+			{
+				_dataLoader.StateChanged += OnDataLoaderStateChanged;
+				_isSubscribedToSource = true;
+			}
+
 			_isLoaded = true;
 			Update(_dataLoader?.State);
 		}
 
 		private void OnUnloaded(object sender, RoutedEventArgs e)
 		{
+			if (_dataLoader != null)
+			{
+				_dataLoader.StateChanged -= OnDataLoaderStateChanged;
+				_isSubscribedToSource = false;
+			}
+
 			_isLoaded = false;
 		}
 
@@ -90,6 +103,7 @@ namespace Chinook.DataLoader
 			if (_dataLoader != null)
 			{
 				_dataLoader.StateChanged -= OnDataLoaderStateChanged;
+				_isSubscribedToSource = false;
 			}
 
 			_dataLoader = dataLoader;
@@ -99,6 +113,7 @@ namespace Chinook.DataLoader
 			if (dataLoader != null)
 			{
 				_dataLoader.StateChanged += OnDataLoaderStateChanged;
+				_isSubscribedToSource = true;
 
 				if (AutoLoad)
 				{
