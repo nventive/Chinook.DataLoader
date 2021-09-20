@@ -73,7 +73,7 @@ namespace Chinook.DataLoader
 		public IDataLoaderRequest Request
 		{
 			get => _request.GetTargetOrDefault();
-			set => _data.SetTarget(value);
+			set => _request.SetTarget(value);
 		}
 
 		public object Data
