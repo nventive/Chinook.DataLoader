@@ -96,7 +96,7 @@ namespace Chinook.DataLoader
 		private static void OnStateMinimumDurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			var that = (DataLoaderView)d;
-			that._stateMinDuration = e.NewValue as TimeSpan? ?? TimeSpan.Zero;
+			that._controller.StateMinimumDuration = e.NewValue as TimeSpan? ?? TimeSpan.Zero;
 		}
 
 		/// <summary>
@@ -117,7 +117,7 @@ namespace Chinook.DataLoader
 		private static void OnStateChangingThrottleDelay(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			var that = (DataLoaderView)d;
-			that._stateChangingThrottleDelay = e.NewValue as TimeSpan? ?? TimeSpan.Zero;
+			that._controller.StateChangingThrottleDelay = e.NewValue as TimeSpan? ?? TimeSpan.Zero;
 		}
 
 		public bool AutoLoad

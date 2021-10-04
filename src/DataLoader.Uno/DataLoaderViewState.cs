@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
 namespace Chinook.DataLoader
@@ -18,7 +19,7 @@ namespace Chinook.DataLoader
 		// Source is also strongly held by the DataLoaderView.
 		// Request, Data, and Error are all strongly held by the DataLoader's State (strongly held in DataLoaderView's Source).
 
-		private WeakReference<DataLoaderView> _view = new WeakReference<DataLoaderView>(null);
+		private WeakReference<Control> _view = new WeakReference<Control>(null);
 		private WeakReference<object> _parent = new WeakReference<object>(null);
 		private WeakReference<IDataLoader> _source = new WeakReference<IDataLoader>(null);
 		private WeakReference<IDataLoaderRequest> _request = new WeakReference<IDataLoaderRequest>(null);
@@ -52,7 +53,7 @@ namespace Chinook.DataLoader
 			IsEmpty = dataLoaderViewState.IsEmpty;
 		}
 
-		public DataLoaderView View
+		public Control View
 		{
 			get => _view.GetTargetOrDefault();
 			set => _view.SetTarget(value);
