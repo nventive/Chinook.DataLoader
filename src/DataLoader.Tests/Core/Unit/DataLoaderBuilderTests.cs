@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chinook.DataLoader;
+using FluentAssertions;
 using Xunit;
 
 namespace Tests.Core.Unit
@@ -26,7 +27,7 @@ namespace Tests.Core.Unit
 			builder = builder.WithTrigger(d => new ManualDataLoaderTrigger());
 			builder = builder.WithTrigger(new ManualDataLoaderTrigger());
 
-			Assert.NotNull(builder);
+			builder.Should().NotBeNull();
 		}
 
 		/// <summary>
@@ -45,7 +46,7 @@ namespace Tests.Core.Unit
 			builder = builder.WithTrigger(d => new ManualDataLoaderTrigger());
 			builder = builder.WithTrigger(new ManualDataLoaderTrigger());
 
-			Assert.NotNull(builder);
+			builder.Should().NotBeNull();
 		}
 
 		/// <summary>
@@ -64,7 +65,7 @@ namespace Tests.Core.Unit
 				.WithTrigger(d => new ManualDataLoaderTrigger())
 				.WithTrigger(new ManualDataLoaderTrigger());
 
-			Assert.NotNull(builder);
+			builder.Should().NotBeNull();
 		}
 
 		/// <summary>
@@ -83,7 +84,7 @@ namespace Tests.Core.Unit
 				.WithTrigger(d => new ManualDataLoaderTrigger())
 				.WithTrigger(new ManualDataLoaderTrigger());
 
-			Assert.NotNull(builder);
+			builder.Should().NotBeNull();
 		}
 	}
 }
