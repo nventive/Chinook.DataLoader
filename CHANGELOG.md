@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 [#24] Update Android target to 10.0
+[#33] Change target Uno.UI version to 4.0.7
 ### Deprecated
 
 ### Removed
