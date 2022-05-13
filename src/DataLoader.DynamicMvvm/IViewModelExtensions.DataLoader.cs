@@ -9,10 +9,54 @@ using Chinook.DataLoader;
 namespace Chinook.DynamicMvvm
 {
 	/// <summary>
-	/// Extensions on <see cref="IViewModel"/> to attach <see cref="IDataLoader"/>.
+	/// This class offers extensions methods on <see cref="IViewModel"/> related to DataLoader.
 	/// </summary>
-	public static partial class IViewModelExtensions
+	public static partial class DataLoaderViewModelExtensions
 	{
+		/// <summary>
+		/// Gets a value from a <see cref="IDynamicProperty"/> attached to this <see cref="IViewModel"/>.<br/>
+		/// The underlying property is bound to the <see cref="IDataLoader.State"/> of <paramref name="dataLoader"/>, meaning
+		/// the value of the property changes every time the <paramref name="dataLoader"/> changes its state.
+		/// </summary>
+		/// <typeparam name="TData">The type of data from the <paramref name="dataLoader"/>.</typeparam>
+		/// <param name="viewModel">The <see cref="IViewModel"/> owning the dynamic property.</param>
+		/// <param name="dataLoader">The <see cref="IDataLoader"/>.</param>
+		/// <param name="name">The name of the <see cref="IDynamicProperty"/>.</param>
+		/// <returns>The <see cref="IDataLoaderState"/> from <paramref name="dataLoader"/>.</returns>
+		public static IDataLoaderState<TData> GetFromDataLoaderState<TData>(
+			this IViewModel viewModel,
+			IDataLoader<TData> dataLoader,
+			[CallerMemberName] string name = null
+		) => viewModel.Get<IDataLoaderState<TData>>(GetDynamicPropertyFromState<TData>(viewModel, dataLoader, name, isGeneric: true));
+
+		/// <inheritdoc cref="GetFromDataLoaderState{TData}(IViewModel, IDataLoader{TData}, string)"/>
+		public static IDataLoaderState GetFromDataLoaderState(
+			this IViewModel viewModel,
+			IDataLoader dataLoader,
+			[CallerMemberName] string name = null
+		) => viewModel.Get<IDataLoaderState>(GetDynamicPropertyFromState<object>(viewModel, dataLoader, name, isGeneric: false));
+
+		private static IDynamicProperty GetDynamicPropertyFromState<TData>(IViewModel viewModel, IDataLoader dataLoader, string name, bool isGeneric)
+		{
+			return viewModel.GetOrCreateDynamicProperty(name, n =>
+			{
+				var initialState = isGeneric ? dataLoader.State.AsOf<TData>() : dataLoader.State;
+				var property = viewModel.GetDynamicPropertyFactory().Create(n, initialState, viewModel);
+
+				dataLoader.StateChanged += OnStateChanged;
+
+				void OnStateChanged(IDataLoader dl, IDataLoaderState newState)
+				{
+					property.Value = isGeneric ? newState.AsOf<TData>() : newState;
+				}
+
+				viewModel.AddDisposable(name + nameof(GetFromDataLoaderState), new ActionDisposable(() => dataLoader.StateChanged -= OnStateChanged));
+
+				return property;
+			});
+		}
+
+
 		/// <summary>
 		/// Gets or creates a <see cref="IDataLoader"/> from a task.
 		/// </summary>

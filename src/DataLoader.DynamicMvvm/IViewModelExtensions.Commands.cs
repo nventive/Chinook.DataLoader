@@ -9,10 +9,7 @@ using Chinook.DataLoader;
 
 namespace Chinook.DynamicMvvm
 {
-	/// <summary>
-	/// Extensions on <see cref="IViewModel"/> to create commands for <see cref="IDataLoader"/>.
-	/// </summary>
-	public static partial class IViewModelExtensions
+	public static partial class DataLoaderViewModelExtensions
 	{
 		/// <summary>
 		/// Gets or creates a <see cref="IDynamicCommand"/> that will refresh
