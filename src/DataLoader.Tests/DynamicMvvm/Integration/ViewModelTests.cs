@@ -25,6 +25,7 @@ namespace Tests.DynamicMvvm.Integration
 
 			serviceCollection.AddSingleton<IDataLoaderBuilderFactory, DataLoaderBuilderFactory>();
 			serviceCollection.AddSingleton<IDynamicCommandBuilderFactory, DynamicCommandBuilderFactory>();
+			serviceCollection.AddSingleton<IDynamicPropertyFactory, DynamicPropertyFactory>();
 
 			_serviceProvider = serviceCollection.BuildServiceProvider();
 		}
@@ -52,13 +53,34 @@ namespace Tests.DynamicMvvm.Integration
 			vm.RefreshTitles.Should().BeNull();
 		}
 
+		[Fact]
+		public async Task FromState_properties_update_with_their_DataLoaders()
+		{
+			var vm = new MyViewModel(_serviceProvider);
+			var initialSubtitleState = vm.SubtitlesState;
+
+			vm.TitlesState.Data.Should().BeNull();
+			vm.SubtitlesState.Data.Should().BeNull();
+
+			await vm.Titles.Load(CancellationToken.None);
+
+			vm.TitlesState.Data.Should().Contain(new[] { "Hello", "World" });
+
+			await vm.Subtitles.Load(CancellationToken.None);
+
+			vm.SubtitlesState.Should().NotBe(initialSubtitleState);
+
+		}
+
 		private class MyViewModel : ViewModelBase
 		{
 			public MyViewModel(IServiceProvider serviceProvider) : base(serviceProvider: serviceProvider)
 			{
 			}
 
-			public IDataLoader Titles => this.GetDataLoader(GetTitles, b => b
+			public IDataLoaderState<string[]> TitlesState => this.GetFromDataLoaderState(Titles);
+
+			public IDataLoader<string[]> Titles => this.GetDataLoader(GetTitles, b => b
 				.OnBackgroundThread()
 				.WithName("MySuperTitles")
 				.WithEmptySelector(d => !(d.Data?.Any() ?? false))
@@ -74,6 +96,8 @@ namespace Tests.DynamicMvvm.Integration
 			}
 
 			public IDynamicCommand RefreshTitles => this.GetCommandFromDataLoaderRefresh(Titles);
+
+			public IDataLoaderState SubtitlesState => this.GetFromDataLoaderState(Subtitles);
 
 			public IDataLoader Subtitles => this.GetDataLoader(GetSubtitles);
 
