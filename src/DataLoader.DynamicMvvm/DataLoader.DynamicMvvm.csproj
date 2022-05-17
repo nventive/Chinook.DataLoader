@@ -1,22 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
-        <RootNamespace>Chinook.DynamicMvvm</RootNamespace>
-        <Authors>nventive</Authors>
-        <Company>nventive</Company>
-        <AssemblyName>Chinook.DataLoader.DynamicMvvm</AssemblyName>
-        <PackageId>Chinook.DataLoader.DynamicMvvm</PackageId>
-        <Description>Chinook.DataLoader.DynamicMvvm</Description>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
+		<Authors>nventive</Authors>
+		<Company>nventive</Company>
+		<AssemblyName>Chinook.DataLoader.DynamicMvvm</AssemblyName>
+		<PackageId>Chinook.DataLoader.DynamicMvvm</PackageId>
+		<Description>Chinook.DataLoader.DynamicMvvm</Description>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="0.9.0-dev.85" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\DataLoader\DataLoader.csproj" />
-    </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\DataLoader\DataLoader.csproj" />
+		<PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="0.9.0-dev.85" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>		
+	</ItemGroup>
+	
 </Project>

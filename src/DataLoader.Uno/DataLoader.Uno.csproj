@@ -12,6 +12,10 @@
 		<PackageId>Chinook.DataLoader.Uno</PackageId>
 		<Description>Chinook.DataLoader.Uno</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
@@ -26,5 +30,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\DataLoader.Abstractions\DataLoader.Abstractions.csproj" />
 		<ProjectReference Include="..\DataLoader\DataLoader.csproj" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
 	</ItemGroup>
 </Project>
