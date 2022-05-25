@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,8 +39,16 @@ namespace Chinook.DynamicMvvm
 		{
 			return viewModel.GetOrCreateDynamicProperty(name, n =>
 			{
-				var initialState = isGeneric ? dataLoader.State.AsOf<TData>() : dataLoader.State;
-				var property = viewModel.GetDynamicPropertyFactory().Create(n, initialState, viewModel);
+				var property = default(IDynamicProperty);
+				if (isGeneric)
+				{
+					// We have to explicitly specify the type here, otherwise, it will instead use the non generic type (InvalidCastException).
+					property = viewModel.GetDynamicPropertyFactory().Create<IDataLoaderState<TData>>(n, dataLoader.State.AsOf<TData>(), viewModel);
+				}
+				else
+				{
+					property = viewModel.GetDynamicPropertyFactory().Create(n, dataLoader.State, viewModel);
+				}
 
 				dataLoader.StateChanged += OnStateChanged;
 
