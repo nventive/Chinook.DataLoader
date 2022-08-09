@@ -22,10 +22,21 @@ namespace Tests.Core.Unit
 			sut.InnerStrategy = new MockDelegatingDataLoaderStrategy(() => Task.FromResult(new object()));
 
 			// Act
-			await sut.Load(CancellationToken.None, null);
+			await sut.Load(CancellationToken.None, new TestRequest(0));
 
 			// Assert
 			methodCount.Should().Be(0);
+		}
+
+		[Fact]
+		public async Task Throw_When_RequestIsNull()
+		{
+			// Arrange
+			var sut = new OnDataLostDataLoaderStrategy(_ => { });
+			sut.InnerStrategy = new MockDelegatingDataLoaderStrategy(() => Task.FromResult(new object()));
+
+			// Act & Assert
+			await Assert.ThrowsAsync<ArgumentNullException>(() => sut.Load(CancellationToken.None, request: null));
 		}
 
 		[Theory]
@@ -43,14 +54,52 @@ namespace Tests.Core.Unit
 				var result = isFirstLoad ? firstLoad : secondLoad;
 				return Task.FromResult(result);
 			});
-			await sut.Load(CancellationToken.None, null);
+			await sut.Load(CancellationToken.None, new TestRequest(0));
 			isFirstLoad = false;
 
 			// Act
-			await sut.Load(CancellationToken.None, null);
+			await sut.Load(CancellationToken.None, new TestRequest(1));
 
 			// Assert
 			methodCount.Should().Be(expectedMethodCount);
+		}
+
+		[Fact]
+		public async Task DisposeLatestData_When_Request2FinishesBeforeRequest1()
+		{
+			// Arrange
+			var lostItem = default(object);
+			var isFirstLoad = true;
+			Action<object> mockAction = data => lostItem = data;
+			var tcs = new TaskCompletionSource<bool>();
+
+			var sut = new OnDataLostDataLoaderStrategy(mockAction);
+			sut.InnerStrategy = new MockDelegatingDataLoaderStrategy(async () =>
+			{
+				var result = isFirstLoad ? 1 : 2;
+				if (isFirstLoad)
+				{
+					await tcs.Task;
+				}
+				return result;
+			});
+
+			// Act
+
+			// Start 2 concurrent loads.
+			var task1 = sut.Load(CancellationToken.None, new TestRequest(0));
+			isFirstLoad = false;
+			var task2 = sut.Load(CancellationToken.None, new TestRequest(1));
+
+			// Make it so that the first load finishes after the second load.
+			await task2;
+			tcs.SetResult(true);
+			await task1;
+
+			// Assert
+
+			// The lost item needs to be 1 (the value associated with the first load) even if it finished last (because the second load deprecates the first one).
+			lostItem.Should().Be(1);
 		}
 
 		public class MockDelegatingDataLoaderStrategy : DelegatingDataLoaderStrategy
@@ -86,6 +135,20 @@ namespace Tests.Core.Unit
 			}
 
 			IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		}
+
+		public class TestRequest : IDataLoaderRequest
+		{
+			public TestRequest(int sequenceId)
+			{
+				SequenceId = sequenceId;
+			}
+
+			public int SequenceId { get; }
+
+			public IDataLoaderTrigger SourceTrigger { get; }
+
+			public IDataLoaderContext Context { get; }
 		}
 	}
 }
