@@ -14,6 +14,7 @@ namespace Chinook.DataLoader
 	{
 		private readonly Action<object> _onPreviousDataLost;
 		private object _data;
+		private int _lastRequestId;
 
 		/// <summary>
 		/// Creates a new instance of <see cref="OnDataLostDataLoaderStrategy"/>.
@@ -27,9 +28,25 @@ namespace Chinook.DataLoader
 		/// <inheritdoc/>
 		public override async Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
 		{
+			if (request is null)
+			{
+				throw new ArgumentNullException(nameof(request), "OnDataLostDataLoaderStrategy requires a non-null IDataLoaderRequest parameter in order to read its SequenceId.");
+			}
+
+			_lastRequestId = request.SequenceId;
+
 			var result = await base.Load(ct, request);
 
-			// We should not dispose the previous data if we load the same instance.
+			// Check whether the result we get is the latest one.
+			if (request.SequenceId != _lastRequestId)
+			{
+				// If the result isn't the latest, we consider it lost immediately.
+				// This can happen when the DataLoader loads 2 requests concurrently in a way that the second request finishes before the first request.
+				_onPreviousDataLost(result);
+				return _data;
+			}
+
+			// We should not lose the previous data if we load the same instance.
 			if (_data != null && !ReferenceEquals(_data, result))
 			{
 				_onPreviousDataLost(_data);
