@@ -1,21 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<LangVersion>8.0</LangVersion>
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
 		<RootNamespace>Chinook.DataLoader</RootNamespace>
 		<Authors>nventive</Authors>
 		<Company>nventive</Company>
 		<AssemblyName>Chinook.DataLoader.Abstractions</AssemblyName>
 		<PackageId>Chinook.DataLoader.Abstractions</PackageId>
-		<Description>Chinook.DataLoader.Abstractions</Description>
+		<Description>Recipes for loading asynchronous data in a MVVM context.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>dataloader;async;mvvm;xamarin;ios;android;uwp;chinook</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/nventive/Chinook.DataLoader</PackageProjectUrl>
+
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>

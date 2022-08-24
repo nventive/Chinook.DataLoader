@@ -7,13 +7,25 @@
 		<Company>nventive</Company>
 		<AssemblyName>Chinook.DataLoader</AssemblyName>
 		<PackageId>Chinook.DataLoader</PackageId>
-		<Description>Chinook.DataLoader</Description>
+		<Description>Recipes for loading asynchronous data in a MVVM context.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>dataloader;async;mvvm;xamarin;ios;android;uwp;chinook</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/nventive/Chinook.DataLoader</PackageProjectUrl>
+
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 	
 	<ItemGroup>
 	  <ProjectReference Include="..\DataLoader.Abstractions\DataLoader.Abstractions.csproj" />
