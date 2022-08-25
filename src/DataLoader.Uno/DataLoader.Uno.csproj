@@ -10,13 +10,25 @@
 		<Company>nventive</Company>
 		<AssemblyName>Chinook.DataLoader.Uno</AssemblyName>
 		<PackageId>Chinook.DataLoader.Uno</PackageId>
-		<Description>Chinook.DataLoader.Uno</Description>
+		<Description>Recipes for loading asynchronous data in a MVVM context.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>dataloader;async;mvvm;xamarin;ios;android;uwp;chinook</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/nventive/Chinook.DataLoader</PackageProjectUrl>
+
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
 		<DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
