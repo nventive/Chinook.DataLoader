@@ -43,6 +43,7 @@ namespace Chinook.DataLoader.DisposeWithNextLoad
 			_disposables.Clear();
 		}
 
+		/// <inheritdoc/>
 		public void Dispose()
 		{
 			ClearDisposables();

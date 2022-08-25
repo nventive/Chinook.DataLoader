@@ -29,24 +29,34 @@ namespace Chinook.DataLoader
 			set => _values[key] = value;
 		}
 
+		/// <inheritdoc />
 		public IEnumerable<string> Keys => _values.Keys;
 
+		/// <inheritdoc />
 		public IEnumerable<object> Values => _values.Values;
 
+		/// <inheritdoc />		
 		public int Count => _values.Count;
 
+		/// <inheritdoc />		
 		public void Add(string key, object value) => _values.Add(key, value);
 
+		/// <inheritdoc />
 		public void Clear() => _values.Clear();
 
+		/// <inheritdoc />
 		public bool ContainsKey(string key) => _values.ContainsKey(key);
 
+		/// <inheritdoc />		
 		public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => _values.GetEnumerator();
 
+		/// <inheritdoc />
 		public bool Remove(string key) => _values.Remove(key);
 
+		/// <inheritdoc />
 		public bool TryGetValue(string key, out object value) => _values.TryGetValue(key, out value);
 
+		/// <inheritdoc />
 		IEnumerator IEnumerable.GetEnumerator() => _values.GetEnumerator();
 	}
 }

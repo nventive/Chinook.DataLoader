@@ -99,7 +99,7 @@ namespace Chinook.DataLoader
 				{
 					if (_logger.IsEnabled(LogLevel.Error))
 					{
-						_logger.LogError(e, "Caught unhandled exception during Load operation. Prefer injecting a strategy that handles all exceptions in your application code.");
+						_logger.LogError(e, "Caught unhandled exception during Load operation. Consider injecting a strategy that handles all exceptions in your application code.");
 					}
 				}
 			}

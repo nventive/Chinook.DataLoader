@@ -50,6 +50,11 @@ namespace Chinook.DataLoader
 		private DateTimeOffset _lastUpdate = DateTimeOffset.MinValue; // This is a timestamp of when the last UI update was done.
 		private int _updateId; // This is a counter for the Update method. It's used to deal with concurrency.
 
+		/// <summary>
+		/// ­­Initializes a new instance of the <see cref="DataLoaderViewController"/> class.
+		/// </summary>
+		/// <param name="dataLoaderViewDelegate">The delegate actioning the controller's logic.</param>
+		/// <param name="dispatcher">The dispatcher required for UI updates.</param>
 		public DataLoaderViewController(IDataLoaderViewDelegate dataLoaderViewDelegate, CoreDispatcher dispatcher)
 		{
 			_delegate = new WeakReference<IDataLoaderViewDelegate>(dataLoaderViewDelegate);
@@ -77,8 +82,15 @@ namespace Chinook.DataLoader
 		/// <inheritdoc cref="DataLoaderView.StateChangingThrottleDelay"/>
 		public TimeSpan StateChangingThrottleDelay { get; set; } = TimeSpan.Zero;
 
+		/// <summary>
+		/// Gets the dispatcher required for UI updates.
+		/// </summary>
 		public CoreDispatcher Dispatcher { get; }
 
+		/// <summary>
+		/// Sets the <see cref="IDataLoader"/> to be observed by this controller.
+		/// </summary>
+		/// <param name="dataLoader">The data loader.</param>
 		public void SetDataLoader(IDataLoader dataLoader)
 		{
 			if (_dataLoader != null)
@@ -98,6 +110,9 @@ namespace Chinook.DataLoader
 			}
 		}
 
+		/// <summary>
+		/// Subscribes to the <see cref="IDataLoader"/>'s <see cref="IDataLoader.StateChanged"/> event and updates the view accordingly.
+		/// </summary>
 		public void OnViewLoaded()
 		{
 			if (!_isSubscribedToSource && _dataLoader != null)
@@ -110,6 +125,9 @@ namespace Chinook.DataLoader
 			Update(_dataLoader?.State);
 		}
 
+		/// <summary>
+		/// Unsubscribes from the <see cref="IDataLoader"/>'s <see cref="IDataLoader.StateChanged"/> event.
+		/// </summary>
 		public void OnViewUnloaded()
 		{
 			if (_dataLoader != null)
@@ -410,7 +428,7 @@ namespace Chinook.DataLoader
 			}
 		}
 
-		public async Task<IDisposable> LockAsync()
+		private async Task<IDisposable> LockAsync()
 		{
 			await _semaphore.WaitAsync();
 

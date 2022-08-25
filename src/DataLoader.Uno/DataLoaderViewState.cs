@@ -6,6 +6,10 @@ using Windows.UI.Xaml.Data;
 
 namespace Chinook.DataLoader
 {
+	/// <summary>
+	/// Represents the state of the <see cref="DataLoaderView"/>.
+	/// It's similar to <see cref="IDataLoaderState"/>, but it includes additional properties (such as <see cref="View"/> and <see cref="Parent"/>) to ease data binding.
+	/// </summary>
 	[Preserve(AllMembers = true)]
 	[Bindable]
 	public class DataLoaderViewState
@@ -19,12 +23,12 @@ namespace Chinook.DataLoader
 		// Source is also strongly held by the DataLoaderView.
 		// Request, Data, and Error are all strongly held by the DataLoader's State (strongly held in DataLoaderView's Source).
 
-		private WeakReference<Control> _view = new WeakReference<Control>(null);
-		private WeakReference<object> _parent = new WeakReference<object>(null);
-		private WeakReference<IDataLoader> _source = new WeakReference<IDataLoader>(null);
-		private WeakReference<IDataLoaderRequest> _request = new WeakReference<IDataLoaderRequest>(null);
-		private WeakReference<object> _data = new WeakReference<object>(null);
-		private WeakReference<Exception> _error = new WeakReference<Exception>(null);
+		private readonly WeakReference<Control> _view = new WeakReference<Control>(null);
+		private readonly WeakReference<object> _parent = new WeakReference<object>(null);
+		private readonly WeakReference<IDataLoader> _source = new WeakReference<IDataLoader>(null);
+		private readonly WeakReference<IDataLoaderRequest> _request = new WeakReference<IDataLoaderRequest>(null);
+		private readonly WeakReference<object> _data = new WeakReference<object>(null);
+		private readonly WeakReference<Exception> _error = new WeakReference<Exception>(null);
 
 		/// <summary>
 		/// Creates a new instance of <see cref="DataLoaderViewState"/>.
@@ -53,46 +57,63 @@ namespace Chinook.DataLoader
 			IsEmpty = dataLoaderViewState.IsEmpty;
 		}
 
+		/// <summary>
+		/// The control that generated this state.
+		/// This is typically a <see cref="DataLoaderView"/>, but it could be something else if you implement your own <see cref="IDataLoaderViewDelegate"/>.
+		/// </summary>
 		public Control View
 		{
 			get => _view.GetTargetOrDefault();
 			set => _view.SetTarget(value);
 		}
 
+		/// <summary>
+		/// The DataContext of the <see cref="View"/>.
+		/// This is really helpful to bind to properties of the ViewModel owning the <see cref="IDataLoader"/>.
+		/// </summary>
 		public object Parent
 		{
 			get => _parent.GetTargetOrDefault();
 			set => _parent.SetTarget(value);
 		}
 
+		/// <summary>
+		/// The <see cref="IDataLoader"/>.
+		/// </summary>
 		public IDataLoader Source
 		{
 			get => _source.GetTargetOrDefault();
 			set => _source.SetTarget(value);
 		}
 
+		/// <inheritdoc cref="IDataLoaderState.Request"/>
 		public IDataLoaderRequest Request
 		{
 			get => _request.GetTargetOrDefault();
 			set => _request.SetTarget(value);
 		}
 
+		/// <inheritdoc cref="IDataLoaderState.Data"/>
 		public object Data
 		{
 			get => _data.GetTargetOrDefault();
 			set => _data.SetTarget(value);
 		}
 
+		/// <inheritdoc cref="IDataLoaderState.Error"/>
 		public Exception Error
 		{
 			get => _error.GetTargetOrDefault();
 			set => _error.SetTarget(value);
 		}
 
+		/// <inheritdoc cref="IDataLoaderState.IsLoading"/>
 		public bool IsLoading { get; set; }
 
+		/// <inheritdoc cref="IDataLoaderState.IsInitial"/>
 		public bool IsInitial { get; set; }
 
+		/// <inheritdoc cref="IDataLoaderState.IsEmpty"/>
 		public bool IsEmpty { get; set; }
 	}
 }

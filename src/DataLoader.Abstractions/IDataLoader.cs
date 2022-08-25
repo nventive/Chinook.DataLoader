@@ -69,10 +69,22 @@ namespace Chinook.DataLoader
 		new Task<TData> Load(CancellationToken ct, IDataLoaderContext context = null);
 	}
 
+	/// <summary>
+	/// The event handler for the <see cref="IDataLoader.StateChanged"/> event.
+	/// </summary>
+	/// <param name="dataLoader">The data loader that raises the event.</param>
+	/// <param name="newState">The new state the data loader is in.</param>
 	public delegate void StateChangedEventHandler(IDataLoader dataLoader, IDataLoaderState newState);
 
+	/// <summary>
+	/// The load delegate used by <see cref="IDataLoaderBuilder.LoadMethod"/> to define the load method of a <see cref="IDataLoader"/>.
+	/// </summary>
+	/// <param name="ct">The cancellation token.</param>
+	/// <param name="request">The data loader request.</param>
+	/// <returns>A task of object, where the object is the data loaded by the data loader.</returns>
 	public delegate Task<object> DataLoaderDelegate(CancellationToken ct, IDataLoaderRequest request);
 
+	/// <inheritdoc cref="DataLoaderDelegate"/>
 	public delegate Task<TData> DataLoaderDelegate<TData>(CancellationToken ct, IDataLoaderRequest request);
 
 	/// <summary>

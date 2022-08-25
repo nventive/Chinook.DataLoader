@@ -20,6 +20,9 @@ namespace Chinook.DataLoader
 			InnerDataLoader = innerDataLoader;
 		}
 
+		/// <summary>
+		/// Gets the inner <see cref="IDataLoader"/>.
+		/// </summary>
 		public IDataLoader InnerDataLoader { get; }
 
 		/// <inheritdoc cref="IDataLoader{TData}.State" />

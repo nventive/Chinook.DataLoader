@@ -6,17 +6,26 @@ using System.Threading.Tasks;
 
 namespace Chinook.DataLoader.SubscribeToData
 {
+	/// <summary>
+	/// This is <see cref="IDataLoaderStrategy"/> implementation for the SubscribeToData recipe.
+	/// It works in pair with <see cref="SubscribeToDataTrigger"/>.
+	/// </summary>
 	public class SubscribeToDataStrategy : DelegatingDataLoaderStrategy
 	{
 		private readonly Func<object, IDisposable> _subscribeToData;
 
 		private IDisposable _subscription;
 
+		/// <summary>
+		/// Creates a new instance of <see cref="SubscribeToDataStrategy"/>.
+		/// </summary>
+		/// <param name="subscribeToData">The subscription function.</param>
 		public SubscribeToDataStrategy(Func<object, IDisposable> subscribeToData)
 		{
 			_subscribeToData = subscribeToData;
 		}
 
+		/// <inheritdoc/>
 		public override async Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
 		{
 			var value = request.Context[SubscribeToDataTrigger.DataContextKey];
@@ -43,6 +52,7 @@ namespace Chinook.DataLoader.SubscribeToData
 			}
 		}
 
+		/// <inheritdoc/>
 		public override void Dispose()
 		{
 			base.Dispose();

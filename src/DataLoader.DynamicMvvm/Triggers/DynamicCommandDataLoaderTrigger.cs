@@ -5,10 +5,20 @@ using Chinook.DynamicMvvm;
 
 namespace Chinook.DataLoader
 {
+	/// <summary>
+	/// ­Represents the options for the <see cref="DynamicCommandDataLoaderTrigger"/>.
+	/// </summary>
 	[Flags]
 	public enum CommandTriggerOptions
 	{
+		/// <summary>
+		/// The trigger requests a load before just before the command executes. 
+		/// </summary>
 		TriggerBeforeCommandExecution = 0b01,
+
+		/// <summary>
+		/// The trigger requests a load before just after the command executed. 
+		/// </summary>
 		TriggerAfterCommandExecution = 0b10
 	}
 

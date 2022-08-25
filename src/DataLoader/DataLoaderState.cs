@@ -18,6 +18,9 @@ namespace Chinook.DataLoader
 		/// </summary>
 		public static DataLoaderState Default { get; } = new DataLoaderState();
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DataLoaderState"/> class.
+		/// </summary>
 		private DataLoaderState()
 		{
 		}
