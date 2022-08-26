@@ -256,7 +256,7 @@ namespace Chinook.DataLoader
 
 						// Cancel previous request.
 						_cts.Cancel();
-						_cts.Dispose();
+						_cts?.Dispose();
 
 						// Create a new cts for the new request.
 						ctsClosure = _cts = new CancellationTokenSource();
