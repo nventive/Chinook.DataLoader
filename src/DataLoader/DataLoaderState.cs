@@ -223,7 +223,19 @@ namespace Chinook.DataLoader
 		{
 		}
 
-		TData IDataLoaderState<TData>.Data => (TData)base.Data;
+		TData IDataLoaderState<TData>.Data
+		{
+			get
+			{
+				if (base.Data is null && default(TData) != null)
+				{
+					// When data is null but TData doesn't allow null (like value types), we return default(TData).
+					return default;
+				}
+				return (TData)base.Data;
+
+			}
+		}
 	}
 
 	/// <summary>
