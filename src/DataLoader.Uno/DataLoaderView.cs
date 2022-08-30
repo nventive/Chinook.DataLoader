@@ -4,6 +4,10 @@ using Windows.UI.Xaml.Markup;
 
 namespace Chinook.DataLoader
 {
+	/// <summary>
+	/// This control has visual states associated to the <see cref="IDataLoader"/> states.
+	/// It can be used to display a loading indicator while the <see cref="IDataLoader"/> is loading data.
+	/// </summary>
 	[TemplateVisualState(GroupName = DataLoaderViewController.DataVisualGroup, Name = DataLoaderViewController.InitialVisualStateName)]
 	[TemplateVisualState(GroupName = DataLoaderViewController.DataVisualGroup, Name = DataLoaderViewController.DataVisualStateName)]
 	[TemplateVisualState(GroupName = DataLoaderViewController.DataVisualGroup, Name = DataLoaderViewController.EmptyVisualStateName)]
@@ -14,8 +18,11 @@ namespace Chinook.DataLoader
 	[ContentProperty(Name = "ContentTemplate")]
 	public partial class DataLoaderView : Control, IDataLoaderViewDelegate
 	{
-		private DataLoaderViewController _controller;
+		private readonly DataLoaderViewController _controller;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DataLoaderView"/> class.
+		/// </summary>
 		public DataLoaderView()
 		{
 			this.DefaultStyleKey = typeof(DataLoaderView);

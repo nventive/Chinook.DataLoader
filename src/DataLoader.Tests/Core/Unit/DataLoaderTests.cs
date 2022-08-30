@@ -5,12 +5,29 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Chinook.DataLoader;
+using FluentAssertions;
+using FluentAssertions.Execution;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Serilog;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Tests.Core.Unit
 {
 	public class DataLoaderTests
 	{
+		public DataLoaderTests(ITestOutputHelper outputHelper)
+		{
+			DataLoaderConfiguration.LoggerFactory = LoggerFactory.Create(builder => builder
+				.AddSerilog(new LoggerConfiguration()
+					.WriteTo.TestOutput(outputHelper)
+					.MinimumLevel.Verbose()
+					.CreateLogger()
+				)
+			);
+		}
+
 		[Fact]
 		public void Ctor_inputs_are_validated()
 		{
@@ -26,6 +43,129 @@ namespace Tests.Core.Unit
 			Assert.Throws<ArgumentNullException>(() => new DataLoader(null, strategy, concurrentMode, emptySelector));
 			Assert.Throws<ArgumentNullException>(() => new DataLoader(name, null, concurrentMode, emptySelector));
 			Assert.Throws<ArgumentNullException>(() => new DataLoader(name, strategy, concurrentMode, null));
+		}
+
+		[Fact]
+		public void Null_trigger_cannot_be_added()
+		{
+			var dataloader = GetDefaultDataLoader();
+
+			Assert.Throws<ArgumentNullException>(() => dataloader.AddTrigger(null));
+		}
+
+		[Fact]
+		public void Null_trigger_cannot_be_Removed()
+		{
+			var dataloader = GetDefaultDataLoader();
+
+			Assert.Throws<ArgumentNullException>(() => dataloader.RemoveTrigger(null));
+		}
+
+		[Fact]
+		public void Removed_trigger_doesnt_cause_loads()
+		{
+			var loadCount = 0;
+			var dataloader = GetDefaultDataLoader();
+			var trigger = new ManualDataLoaderTrigger();
+
+			dataloader.StateChanged += Dataloader_StateChanged;
+
+			dataloader.AddTrigger(trigger);
+
+			trigger.Trigger();
+
+			loadCount.Should().Be(1);
+
+			dataloader.RemoveTrigger(trigger);
+
+			trigger.Trigger();
+
+			// Should not be 2 because the trigger was removed.
+			loadCount.Should().Be(1);
+
+			void Dataloader_StateChanged(IDataLoader dataLoader, IDataLoaderState newState)
+			{
+				if (!newState.IsLoading)
+				{
+					++loadCount;
+				}
+			}
+		}
+
+		[Fact]
+		public async Task Canceled_token_prevents_load()
+		{
+			var dataloader = GetDefaultDataLoader(Load);
+			var ct = new CancellationToken(canceled: true);
+
+			var result = await dataloader.Load(ct);
+
+			result.Should().BeNull();
+
+			Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
+			{
+				throw new AssertionFailedException("Load should not be called");
+			}
+		}
+
+		[Fact]
+		public async Task Exception_in_load_results_in_error_state()
+		{
+			var dataloader = GetDefaultDataLoader(Load);
+
+			var result = await dataloader.Load(CancellationToken.None);
+
+			result.Should().BeNull();
+
+			dataloader.State.Data.Should().BeNull();
+			dataloader.State.Error.Should().BeOfType<InvalidOperationException>();
+			dataloader.State.IsLoading.Should().BeFalse();
+
+			Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
+			{
+				throw new InvalidOperationException();
+			}
+		}
+
+		[Fact]
+		public async Task Error_from_previous_concurrent_load_isnt_reported_when_CancelPrevious()
+		{
+			var tcs1 = new TaskCompletionSource<bool>();
+			var tcs2 = new TaskCompletionSource<bool>();
+
+			var dataloader = GetDefaultDataLoader(Load);
+			dataloader.StateChanged += Dataloader_StateChanged;
+
+			var load1 = dataloader.Load(CancellationToken.None);
+			var load2 = dataloader.Load(CancellationToken.None);
+
+			tcs2.SetResult(true);
+			tcs1.SetResult(true);
+
+			await load1;
+			await load2;
+
+			dataloader.State.Data.Should().Be("result");
+			dataloader.State.Error.Should().BeNull();
+
+			async Task<object> Load(CancellationToken ct, IDataLoaderRequest request)
+			{
+				if (request.SequenceId == 0)
+				{
+					await tcs1.Task;
+					throw new InvalidOperationException();
+				}
+				else
+				{
+					await tcs2.Task;
+					return "result";
+				}
+			}
+
+			void Dataloader_StateChanged(IDataLoader dataLoader, IDataLoaderState newState)
+			{
+				newState.Error.Should().BeNull();
+			}
 		}
 
 		[Fact]
@@ -215,6 +355,13 @@ namespace Tests.Core.Unit
 			{
 				return Task.FromResult<object>(null);
 			}
+		}
+
+		private IDataLoader GetDefaultDataLoader(DataLoaderDelegate loadMethod = null)
+		{
+			loadMethod ??= async (ct, request) => "result";
+
+			return new DataLoader("sut", new DelegatedDataLoaderStrategy(loadMethod), DataLoaderConcurrentMode.CancelPrevious, s => false);
 		}
 	}
 }

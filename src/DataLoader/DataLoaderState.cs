@@ -18,6 +18,9 @@ namespace Chinook.DataLoader
 		/// </summary>
 		public static DataLoaderState Default { get; } = new DataLoaderState();
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DataLoaderState"/> class.
+		/// </summary>
 		private DataLoaderState()
 		{
 		}
@@ -220,7 +223,19 @@ namespace Chinook.DataLoader
 		{
 		}
 
-		TData IDataLoaderState<TData>.Data => (TData)base.Data;
+		TData IDataLoaderState<TData>.Data
+		{
+			get
+			{
+				if (base.Data is null && default(TData) != null)
+				{
+					// When data is null but TData doesn't allow null (like value types), we return default(TData).
+					return default;
+				}
+				return (TData)base.Data;
+
+			}
+		}
 	}
 
 	/// <summary>

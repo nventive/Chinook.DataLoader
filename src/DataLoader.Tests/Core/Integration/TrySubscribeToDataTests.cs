@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Tests.Core.Integration
 {
-	public class SubscribeToDataTests
+	public class TrySubscribeToDataTests
 	{
 		[Fact]
 		public async Task TrySubscribeToData_works_when_using_matching_types()

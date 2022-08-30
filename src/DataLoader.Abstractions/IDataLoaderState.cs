@@ -15,17 +15,19 @@ namespace Chinook.DataLoader
 		IDataLoaderRequest Request { get; }
 
 		/// <summary>
-		/// Determines whether or not loader was ever successfully completed.
+		/// Determines whether the data loader was ever successfully completed.
+		/// This is true by default until <see cref="Data"/> is set.
 		/// </summary>
 		bool IsInitial { get; }
 
 		/// <summary>
-		/// Determines whether or not loader should be considered empty.
+		/// Determines whether the data loader should be considered empty.
 		/// </summary>
 		bool IsEmpty { get; }
 
 		/// <summary>
-		/// Determines whether or not the state is final.
+		/// Determines whether the state is final.
+		/// This is true while the data loader's Load method is being executed.
 		/// </summary>
 		bool IsLoading { get; }
 

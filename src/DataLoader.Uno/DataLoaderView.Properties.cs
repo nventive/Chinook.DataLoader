@@ -8,6 +8,9 @@ namespace Chinook.DataLoader
 {
 	public partial class DataLoaderView
 	{
+		/// <summary>
+		/// The <see cref="IDataLoader"/> driving the <see cref="DataLoaderView"/>.
+		/// </summary>
 		public IDataLoader Source
 		{
 			get => (IDataLoader)GetValue(SourceProperty);
@@ -22,6 +25,9 @@ namespace Chinook.DataLoader
 			((DataLoaderView)d).OnSourceChanged((IDataLoader)e.NewValue);
 		}
 
+		/// <summary>
+		/// The binding-friendly state of the <see cref="DataLoaderView"/>.
+		/// </summary>
 		public DataLoaderViewState State
 		{
 			get => (DataLoaderViewState)GetValue(StateProperty);
@@ -31,6 +37,10 @@ namespace Chinook.DataLoader
 		public static readonly DependencyProperty StateProperty =
 			DependencyProperty.Register("State", typeof(DataLoaderViewState), typeof(DataLoaderView), new PropertyMetadata(null));
 
+		/// <summary>
+		/// The template to display the main content of the <see cref="DataLoaderView"/>.
+		/// This would typically use the <see cref="DataLoaderViewState.Data"/> to display the data loaded by the <see cref="IDataLoader"/>.
+		/// </summary>
 		public DataTemplate ContentTemplate
 		{
 			get => (DataTemplate)GetValue(ContentTemplateProperty);
@@ -40,6 +50,10 @@ namespace Chinook.DataLoader
 		public static readonly DependencyProperty ContentTemplateProperty =
 			DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(DataLoaderView), new PropertyMetadata(null));
 
+		/// <summary>
+		/// The template to display when the state is considered empty.
+		/// This directly links to <see cref="IDataLoaderState.IsEmpty"/>.
+		/// </summary>
 		public DataTemplate EmptyTemplate
 		{
 			get => (DataTemplate)GetValue(EmptyTemplateProperty);
@@ -49,6 +63,10 @@ namespace Chinook.DataLoader
 		public static readonly DependencyProperty EmptyTemplateProperty =
 			DependencyProperty.Register("EmptyTemplate", typeof(DataTemplate), typeof(DataLoaderView), new PropertyMetadata(null));
 
+		/// <summary>
+		/// The template to display when the state contains an error.
+		/// Typically this would be use when the state contains an error and no data.
+		/// </summary>
 		public DataTemplate ErrorTemplate
 		{
 			get => (DataTemplate)GetValue(ErrorTemplateProperty);
@@ -58,6 +76,10 @@ namespace Chinook.DataLoader
 		public static readonly DependencyProperty ErrorTemplateProperty =
 			DependencyProperty.Register("ErrorTemplate", typeof(DataTemplate), typeof(DataLoaderView), new PropertyMetadata(null));
 
+		/// <summary>
+		/// The template to display when the state contains both an error and data.
+		/// Your style could overlay this template over the <see cref="ContentTemplate"/>.
+		/// </summary>
 		public DataTemplate ErrorNotificationTemplate
 		{
 			get => (DataTemplate)this.GetValue(ErrorNotificationTemplateProperty);
@@ -120,6 +142,10 @@ namespace Chinook.DataLoader
 			that._controller.StateChangingThrottleDelay = e.NewValue as TimeSpan? ?? TimeSpan.Zero;
 		}
 
+		/// <summary>
+		/// Gets or sets whether the <see cref="DataLoaderView"/> automatically loads its <see cref="IDataLoader"/>.
+		/// This defaults to true.
+		/// </summary>
 		public bool AutoLoad
 		{
 			get => (bool)this.GetValue(AutoLoadProperty);

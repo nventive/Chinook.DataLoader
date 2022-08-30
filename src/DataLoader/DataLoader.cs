@@ -99,7 +99,7 @@ namespace Chinook.DataLoader
 				{
 					if (_logger.IsEnabled(LogLevel.Error))
 					{
-						_logger.LogError(e, "Caught unhandled exception during Load operation. Prefer injecting a strategy that handles all exceptions in your application code.");
+						_logger.LogError(e, "Caught unhandled exception during Load operation. Consider injecting a strategy that handles all exceptions in your application code.");
 					}
 				}
 			}
@@ -256,7 +256,7 @@ namespace Chinook.DataLoader
 
 						// Cancel previous request.
 						_cts.Cancel();
-						_cts.Dispose();
+						_cts?.Dispose();
 
 						// Create a new cts for the new request.
 						ctsClosure = _cts = new CancellationTokenSource();

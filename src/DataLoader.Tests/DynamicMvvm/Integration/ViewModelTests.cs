@@ -46,11 +46,16 @@ namespace Tests.DynamicMvvm.Integration
 
 			vm.Titles.Should().NotBeNull();
 			vm.RefreshTitles.Should().NotBeNull();
-
+			
 			vm.Dispose();
 
 			vm.Titles.Should().BeNull();
-			vm.RefreshTitles.Should().BeNull();
+			vm.RefreshTitles.Should().BeNull();			
+			vm.GetOrCreateDataLoader("Titles", s =>
+			{
+				Assert.Fail("This should not be invoked.");
+				return default(IDataLoader<string>);
+			}).Should().BeNull();
 		}
 
 		[Fact]
@@ -70,6 +75,17 @@ namespace Tests.DynamicMvvm.Integration
 
 			vm.SubtitlesState.Should().NotBe(initialSubtitleState);
 
+		}
+
+		[Fact]
+		public async Task Refresh_command_triggers_a_load_request()
+		{
+			var vm = new MyViewModel(_serviceProvider);
+			vm.Titles.State.IsInitial.Should().BeTrue();
+
+			await vm.RefreshTitles.Execute();
+
+			vm.Titles.State.IsInitial.Should().BeFalse();
 		}
 
 		private class MyViewModel : ViewModelBase

@@ -32,9 +32,9 @@ namespace Chinook.DataLoader
 		}
 
 		/// <summary>
-		/// Will trigger a request.
+		/// Requests a load.
 		/// </summary>
-		/// <param name="context"><see cref="IDataLoaderContext"/></param>
+		/// <param name="context">The <see cref="IDataLoaderContext"/>.</param>
 		public void Trigger(IDataLoaderContext context = null) => RaiseLoadRequested(context);
 	}
 }
