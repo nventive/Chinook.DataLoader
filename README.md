@@ -1,7 +1,11 @@
 ﻿# Chinook.DataLoader
-Async data loading made visually pleasant!
-
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+Customizable async data loading recipes for MVVM development.
+
+![iOS-Gif](doc/DataLoader.iOS.gif)
+
+> 🎥 Here we can see the **loading**, **error**, and **data** visual states.
 
 ## Cornerstones
 
@@ -12,7 +16,6 @@ Async data loading made visually pleasant!
 - **Highly Flexible**
   - "Data loading" is a broad topic.
     We aim for our recipes to be flexible enough to support as many use-cases as possible.
-
 
 ## Getting Started
 
