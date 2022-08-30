@@ -16,7 +16,7 @@ namespace Chinook.DataLoader.SubscribeToData
 		/// <summary>
 		/// Creates a new instance of <see cref="SubscribeToDataTrigger"/>.
 		/// </summary>
-		/// <param name="name"></param>
+		/// <param name="name">The name of this trigger.</param>
 		public SubscribeToDataTrigger(string name) : base(name)
 		{
 		}

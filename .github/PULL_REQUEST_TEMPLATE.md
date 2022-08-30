@@ -43,7 +43,7 @@ Please check that your PR fulfills the following requirements:
 - [ ] Documentation has been added/updated.
 - [ ] Automated Unit / Integration tests for the changes have been added/updated.
 - [ ] Updated [BREAKING_CHANGES.md](../BREAKING_CHANGES.md) (if you introduced a breaking change).
-- [ ] Your conventional commit are aligned with the **Impact on version** section.
+- [ ] Your conventional commits are aligned with the **Impact on version** section.
 
 <!-- If this PR contains a breaking change, please describe the impact
      and migration path for existing applications below. -->
