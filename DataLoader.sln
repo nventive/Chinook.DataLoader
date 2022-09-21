@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29920.165
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader", "src\DataLoader\DataLoader.csproj", "{E46DA83F-4161-40DE-9E27-F2526697A172}"
 EndProject
@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLoader.CodeSnippets", "
 	ProjectSection(SolutionItems) = preProject
 		src\DataLoader.CodeSnippets\DataLoaderFromTask.snippet = src\DataLoader.CodeSnippets\DataLoaderFromTask.snippet
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader.Uno.WinUI", "src\DataLoader.Uno.WinUI\DataLoader.Uno.WinUI.csproj", "{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "src\Shared\Shared.shproj", "{23803517-5B29-4A6E-8EE2-5897F936DDBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -146,11 +150,40 @@ Global
 		{837BB2E2-9069-4125-82E2-755F7EF6E4DC}.Release|Simulator.Build.0 = Release|Any CPU
 		{837BB2E2-9069-4125-82E2-755F7EF6E4DC}.Release|UAP.ActiveCfg = Release|Any CPU
 		{837BB2E2-9069-4125-82E2-755F7EF6E4DC}.Release|UAP.Build.0 = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|Android.Build.0 = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|iOS.ActiveCfg = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|iOS.Build.0 = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|NuGet.ActiveCfg = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|NuGet.Build.0 = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|Simulator.ActiveCfg = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|Simulator.Build.0 = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|UAP.ActiveCfg = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Debug|UAP.Build.0 = Debug|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|Android.ActiveCfg = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|Android.Build.0 = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|iOS.ActiveCfg = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|iOS.Build.0 = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|NuGet.ActiveCfg = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|NuGet.Build.0 = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|Simulator.ActiveCfg = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|Simulator.Build.0 = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|UAP.ActiveCfg = Release|Any CPU
+		{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}.Release|UAP.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {293BDCC8-BDC0-4E5E-B7D9-769B5F429969}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Shared\Shared.projitems*{163d097a-92ed-4c63-a5d9-bd4cd2b093f8}*SharedItemsImports = 5
+		src\Shared\Shared.projitems*{23803517-5b29-4a6e-8ee2-5897f936ddbc}*SharedItemsImports = 13
+		src\Shared\Shared.projitems*{e6fc704c-dcce-4af6-bda0-b03ff7223599}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

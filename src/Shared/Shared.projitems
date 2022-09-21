@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>23803517-5b29-4a6e-8ee2-5897f936ddbc</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DataLoaderView.Properties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataLoaderViewState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDataLoaderViewDelegate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PreserveAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WeakReference.Extensions.cs" />
+  </ItemGroup>
+</Project>
