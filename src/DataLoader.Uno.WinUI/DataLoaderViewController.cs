@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.UI.Core;
+using Microsoft.UI.Dispatching;
 
 namespace Chinook.DataLoader
 {
 	/// <summary>
 	/// This controller encapsulates all the reusable logic needed by <see cref="DataLoaderView"/> or other view implementations of <see cref="IDataLoader"/>.<br/>
 	/// </summary>
-	public class DataLoaderViewController : DataLoaderViewControllerBase<CoreDispatcher>
+	public class DataLoaderViewController : DataLoaderViewControllerBase<DispatcherQueue>
 	{
-		public DataLoaderViewController(IDataLoaderViewDelegate dataLoaderViewDelegate, CoreDispatcher dispatcher) : base(dataLoaderViewDelegate, dispatcher)
+		public DataLoaderViewController(IDataLoaderViewDelegate dataLoaderViewDelegate, DispatcherQueue dispatcher) : base(dataLoaderViewDelegate, dispatcher)
 		{
 		}
 
@@ -21,7 +21,7 @@ namespace Chinook.DataLoader
 			}
 			else
 			{
-				await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
+				Dispatcher.TryEnqueue(DispatcherQueuePriority.Normal, () => action());
 			}
 		}
 	}

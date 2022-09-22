@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+#if WINUI
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
+#else
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+#endif
 
 namespace Chinook.DataLoader
 {

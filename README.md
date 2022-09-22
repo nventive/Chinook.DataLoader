@@ -19,7 +19,7 @@ Customizable async data loading recipes for MVVM development.
 
 ## Getting Started
 
-1. Install the latest version of `Chinook.DataLoader.Uno` in your project.
+1. Install the latest version of `Chinook.DataLoader.Uno` or `Chinook.DataLoader.Uno.WinUI` in your project.
 
 1. Add a `IDataLoader` to your ViewModel. 
 
