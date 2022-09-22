@@ -1,6 +1,12 @@
-﻿using Microsoft.UI.Xaml;
+﻿#if WINUI
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Markup;
+#else
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Markup;
+#endif
 
 namespace Chinook.DataLoader
 {
@@ -27,7 +33,11 @@ namespace Chinook.DataLoader
 		{
 			this.DefaultStyleKey = typeof(DataLoaderView);
 
+#if WINUI
 			_controller = new DataLoaderViewController(this, DispatcherQueue);
+#else
+			_controller = new DataLoaderViewController(this, Dispatcher);
+#endif
 
 			Loaded += OnLoaded;
 			Unloaded += OnUnloaded;

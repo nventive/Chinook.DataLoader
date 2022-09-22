@@ -1,8 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 	<PropertyGroup>
-		<!-- Change the TargetFrameworks depending on which platform you are building on. This avoids errors as it is impossible to build UAP on OSX (MacOS) -->
-		<TargetFrameworks Condition="'$([MSBuild]::IsOsPlatform(OSX))'">netstandard2.0;net6.0-ios;net6.0-maccatalyst;net6.0-macos</TargetFrameworks>
-		<TargetFrameworks Condition="'!$([MSBuild]::IsOsPlatform(OSX))'">net6.0-windows10.0.18362;netstandard2.0;net6.0-android</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows10.0.18362;netstandard2.0;net6.0-android;net6.0-ios;</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
 		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
 		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 		<RootNamespace>Chinook.DataLoader</RootNamespace>
@@ -13,7 +12,7 @@
 		<Description>Recipes for loading asynchronous data in a MVVM context.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageTags>dataloader;async;mvvm;xamarin;ios;android;uwp;chinook</PackageTags>
+		<PackageTags>dataloader;async;mvvm;maui;winui;ios;android;chinook</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Chinook.DataLoader</PackageProjectUrl>
 
@@ -29,7 +28,7 @@
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0-dev.9" />
 		<ProjectReference Include="..\DataLoader.Abstractions\DataLoader.Abstractions.csproj" />
 		<ProjectReference Include="..\DataLoader\DataLoader.csproj" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net6.0-windows10.0.18362'">
