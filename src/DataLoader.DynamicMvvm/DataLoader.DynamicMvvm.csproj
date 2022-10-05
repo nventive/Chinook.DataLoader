@@ -14,6 +14,7 @@
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Chinook.DataLoader</PackageProjectUrl>
 
+		<!-- Needed for Source Link support -->
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -30,7 +31,11 @@
 	<ItemGroup>
 		<ProjectReference Include="..\DataLoader\DataLoader.csproj" />
 		<PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="1.0.0" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>		
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Needed for Source Link support -->
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
 	</ItemGroup>
 	
 </Project>
