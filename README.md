@@ -1,5 +1,6 @@
 ﻿# Chinook.DataLoader
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](LICENSE) ![Version](https://img.shields.io/nuget/v/Chinook.DataLoader.Abstractions?style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/Chinook.DataLoader.Abstractions?style=flat-square)
 
 Customizable async data loading recipes for MVVM development.
 
@@ -16,6 +17,12 @@ Customizable async data loading recipes for MVVM development.
 - **Highly Flexible**
   - "Data loading" is a broad topic.
     We aim for our recipes to be flexible enough to support as many use-cases as possible.
+
+### More like this
+The Chinook namespace has other recipes for .Net MVVM applications.
+- [Chinook.DynamicMvvm](https://github.com/nventive/Chinook.DynamicMvvm): MVVM libraries for extensible and declarative ViewModels.
+- [Chinook.Navigation](https://github.com/nventive/Chinook.Navigation): Navigators for ViewModel-first navigation.
+- [Chinook.BackButtonManager](https://github.com/nventive/Chinook.BackButtonManager): Abstractions to deal with hardware back buttons.
 
 ## Getting Started
 
