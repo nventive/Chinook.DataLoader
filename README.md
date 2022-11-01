@@ -673,6 +673,10 @@ Combining this with triggers, `IDataLoaderRequest`, and `IDataLoaderContext`, br
 
 > ⚙ Even the recipes we've seen so far (like `SubscribeToData` or `DisposeWithNextLoad`) are built on top of that extensible foundation.
 
+## Breaking Changes
+
+Please consult [BREAKING_CHANGES.md](BREAKING_CHANGES.md) for more information about breaking changes and version history.
+
 ## License
 
 This project is licensed under the Apache 2.0 license - see the
