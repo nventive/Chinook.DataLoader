@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLoader.CodeSnippets", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader.Uno.WinUI", "src\DataLoader.Uno.WinUI\DataLoader.Uno.WinUI.csproj", "{163D097A-92ED-4C63-A5D9-BD4CD2B093F8}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "src\Shared\Shared.shproj", "{23803517-5B29-4A6E-8EE2-5897F936DDBC}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataLoader.Uno.Shared", "src\DataLoader.Uno.Shared\DataLoader.Uno.Shared.shproj", "{23803517-5B29-4A6E-8EE2-5897F936DDBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,10 +180,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {293BDCC8-BDC0-4E5E-B7D9-769B5F429969}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\Shared\Shared.projitems*{163d097a-92ed-4c63-a5d9-bd4cd2b093f8}*SharedItemsImports = 5
-		src\Shared\Shared.projitems*{23803517-5b29-4a6e-8ee2-5897f936ddbc}*SharedItemsImports = 13
-		src\Shared\Shared.projitems*{e6fc704c-dcce-4af6-bda0-b03ff7223599}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
