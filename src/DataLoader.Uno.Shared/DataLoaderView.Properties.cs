@@ -13,6 +13,23 @@ namespace Chinook.DataLoader
 	public partial class DataLoaderView
 	{
 		/// <summary>
+		/// Function used to populate the default value of the <see cref="RefreshCommand"/> property.
+		/// </summary>
+		/// <remarks>
+		/// This can be useful when most of your refresh commands have the same behavior for all instances of <see cref="DataLoaderView"/>.
+		/// </remarks>
+		public static Func<DataLoaderView, ICommand> DefaultRefreshCommandProvider { get; set; }
+
+		/// <summary>
+		/// Gets the <see cref="IDataLoader"/> associated to this control.
+		/// </summary>
+		/// <remarks>
+		/// This contains the same value as the <see cref="Source"/> property, but can be accessed from outside the control's dispatcher context.
+		/// This can be useful when using the <see cref="DefaultRefreshCommandProvider"/>.
+		/// </remarks>
+		public IDataLoader DataLoader { get; private set; }
+
+		/// <summary>
 		/// The <see cref="IDataLoader"/> driving the <see cref="DataLoaderView"/>.
 		/// </summary>
 		public IDataLoader Source
@@ -26,7 +43,10 @@ namespace Chinook.DataLoader
 
 		private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			((DataLoaderView)d).OnSourceChanged((IDataLoader)e.NewValue);
+			var dataLoaderView = (DataLoaderView)d;
+			var dataLoader = (IDataLoader)e.NewValue;
+			dataLoaderView.DataLoader = dataLoader;
+			dataLoaderView.OnSourceChanged(dataLoader);
 		}
 
 		/// <summary>
