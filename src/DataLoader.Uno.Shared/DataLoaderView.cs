@@ -39,6 +39,8 @@ namespace Chinook.DataLoader
 			_controller = new DataLoaderViewController(this, Dispatcher);
 #endif
 
+			RefreshCommand = DefaultRefreshCommandProvider?.Invoke(this);
+
 			Loaded += OnLoaded;
 			Unloaded += OnUnloaded;
 		}

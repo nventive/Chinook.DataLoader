@@ -673,6 +673,40 @@ Combining this with triggers, `IDataLoaderRequest`, and `IDataLoaderContext`, br
 
 > ⚙ Even the recipes we've seen so far (like `SubscribeToData` or `DisposeWithNextLoad`) are built on top of that extensible foundation.
 
+### Configure a default refresh command for all DataLoaderViews
+It's possible to configure a refresh command for all `DataLoaderView` instances using `DataLoaderView.DefaultRefreshCommandProvider`.
+When this property is set, it's used to set an initial value to `DataLoaderView.RefreshCommand`.
+
+This can be useful to avoid repeating the same code in ViewModels.
+It's also a great way to ensure all DataLoaderViews support manual refreshes, which enables things like putting a refresh button in you DataLoaderView's `ControlTemplate`.
+
+Here is an example to demonstrate how to use `DataLoaderView.DefaultRefreshCommandProvider`.
+In this example, we leverage [`Chinook.DynamicMvvm`](https://github.com/nventive/Chinook.DynamicMvvm) to build the command.
+```csharp
+private void SetupDefaultRefreshCommand(IServiceProvider services)
+{
+  // DefaultRefreshCommandProvider is just a Func<DataLoaderView, ICommand> that's invoked when a DataLoaderView is created.
+  DataLoaderView.DefaultRefreshCommandProvider = GetDataLoaderViewRefreshCommand;
+
+  ICommand GetDataLoaderViewRefreshCommand(DataLoaderView dataLoaderView)
+  {
+    return services
+      .GetRequiredService<IDynamicCommandBuilderFactory>()
+      .CreateFromTask(
+        name: "DataLoaderViewRefreshCommand",
+        execute: async (ct) =>
+        {
+          var context = new DataLoaderContext();
+          // You can add some content to the context.
+          context["IsForceRefreshing"] = true;
+          await dataLoaderView.DataLoader.Load(ct, context);
+        },
+        viewModel: (IViewModel)App.Instance.Shell.DataContext)
+      .Build();
+  }
+}
+```
+
 ## Breaking Changes
 
 Please consult [BREAKING_CHANGES.md](BREAKING_CHANGES.md) for more information about breaking changes and version history.
