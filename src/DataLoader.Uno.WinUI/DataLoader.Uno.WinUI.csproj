@@ -64,4 +64,5 @@
 	</ItemGroup>
 
 	<Import Project="..\DataLoader.Uno.Shared\DataLoader.Uno.Shared.projitems" Label="DataLoader.Uno.Shared" />
+	<Import Project="winappsdk-workaround.targets" />
 </Project>
