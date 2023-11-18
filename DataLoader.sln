@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader", "src\DataLoade
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader.Abstractions", "src\DataLoader.Abstractions\DataLoader.Abstractions.csproj", "{A338DA07-836D-4E50-AE11-C97160DF2FB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader.Uno", "src\DataLoader.Uno\DataLoader.Uno.csproj", "{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader.Tests", "src\DataLoader.Tests\DataLoader.Tests.csproj", "{1E94CA14-C99D-43A8-8344-633BCAFBAFF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLoader.DynamicMvvm", "src\DataLoader.DynamicMvvm\DataLoader.DynamicMvvm.csproj", "{837BB2E2-9069-4125-82E2-755F7EF6E4DC}"
@@ -86,30 +84,6 @@ Global
 		{A338DA07-836D-4E50-AE11-C97160DF2FB5}.Release|Simulator.Build.0 = Release|Any CPU
 		{A338DA07-836D-4E50-AE11-C97160DF2FB5}.Release|UAP.ActiveCfg = Release|Any CPU
 		{A338DA07-836D-4E50-AE11-C97160DF2FB5}.Release|UAP.Build.0 = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|Android.ActiveCfg = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|Android.Build.0 = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|iOS.ActiveCfg = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|iOS.Build.0 = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|NuGet.ActiveCfg = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|NuGet.Build.0 = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|Simulator.ActiveCfg = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|Simulator.Build.0 = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|UAP.ActiveCfg = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Debug|UAP.Build.0 = Debug|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|Android.ActiveCfg = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|Android.Build.0 = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|iOS.ActiveCfg = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|iOS.Build.0 = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|NuGet.ActiveCfg = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|NuGet.Build.0 = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|Simulator.ActiveCfg = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|Simulator.Build.0 = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|UAP.ActiveCfg = Release|Any CPU
-		{E6FC704C-DCCE-4AF6-BDA0-B03FF7223599}.Release|UAP.Build.0 = Release|Any CPU
 		{1E94CA14-C99D-43A8-8344-633BCAFBAFF7}.Debug|Android.ActiveCfg = Debug|Any CPU
 		{1E94CA14-C99D-43A8-8344-633BCAFBAFF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E94CA14-C99D-43A8-8344-633BCAFBAFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
