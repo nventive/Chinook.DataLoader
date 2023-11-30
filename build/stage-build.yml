@@ -1,4 +1,9 @@
-﻿steps:
+﻿parameters:
+  DotNetVersion: '7.0.100'
+  UnoCheck_Version: '1.10.0'
+  UnoCheck_Manifest: 'https://raw.githubusercontent.com/unoplatform/uno.check/a677137a2afd4ee25ba4b4df4bf857671ba192c3/manifests/uno.ui.manifest.json'
+
+steps:
 - task: gitversion/setup@0
   inputs:
     versionSpec: '5.10.1'
@@ -10,15 +15,11 @@
     configFilePath: $(Build.SourcesDirectory)/build/gitversion.yml
   displayName: 'Calculate version'
 
-- script: dotnet workload install android ios macos maccatalyst"
-  displayName: 'Install .NET workloads'
-
-- task: JavaToolInstaller@0
-  displayName: "Install Java SDK 11"
-  inputs:
-    versionSpec: '11'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
+- bash: |
+    dotnet tool update --global uno.check --version ${{ parameters.UnoCheck_Version }} --add-source https://api.nuget.org/v3/index.json
+    uno-check --ci --non-interactive --fix --skip androidsdk --skip androidemulator --skip gtk3 --skip xcode --skip vswin --skip vsmac --manifest ${{ parameters.UnoCheck_Manifest }}
+  displayName: Install .NET Workloads
+  retryCountOnTaskFailure: 3
     
 - task: MSBuild@1
   displayName: 'Restore solution packages'
