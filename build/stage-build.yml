@@ -1,7 +1,7 @@
 ﻿parameters:
-  DotNetVersion: '7.0.100'
-  UnoCheck_Version: '1.10.0'
-  UnoCheck_Manifest: 'https://raw.githubusercontent.com/unoplatform/uno.check/a677137a2afd4ee25ba4b4df4bf857671ba192c3/manifests/uno.ui.manifest.json'
+  DotNetVersion: '7.0.102'
+  UnoCheck_Version: '1.11.0'
+  UnoCheck_Manifest: 'https://raw.githubusercontent.com/unoplatform/uno.check/146b0b4b23d866bef455494a12ad7ffd2f6f2d20/manifests/uno.ui.manifest.json'
 
 steps:
 - task: gitversion/setup@0
@@ -15,10 +15,20 @@ steps:
     configFilePath: $(Build.SourcesDirectory)/build/gitversion.yml
   displayName: 'Calculate version'
 
-- bash: |
-    dotnet tool update --global uno.check --version ${{ parameters.UnoCheck_Version }} --add-source https://api.nuget.org/v3/index.json
-    uno-check --ci --non-interactive --fix --skip androidsdk --skip androidemulator --skip gtk3 --skip xcode --skip vswin --skip vsmac --manifest ${{ parameters.UnoCheck_Manifest }}
-  displayName: Install .NET Workloads
+- task: UseDotNet@2
+  displayName: 'Use .NET SDK ${{ parameters.DotNetVersion }}'
+  retryCountOnTaskFailure: 3
+  inputs:
+    packageType: sdk
+    version: ${{ parameters.DotNetVersion }}
+    includePreviewVersions: true
+
+- powershell: |
+    & dotnet tool update --global uno.check --version ${{ parameters.UnoCheck_Version }} --add-source https://api.nuget.org/v3/index.json
+    & uno-check -v --ci --non-interactive --fix --skip xcode --skip gtk3 --skip vswin --skip vsmac --skip androidsdk --skip androidemulator --manifest ${{ parameters.UnoCheck_Manifest }}
+  displayName: Install .NET Workloads | Uno-check
+  errorActionPreference: continue
+  ignoreLASTEXITCODE: true
   retryCountOnTaskFailure: 3
     
 - task: MSBuild@1
