@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<LangVersion>8.0</LangVersion>
+		<LangVersion>11.0</LangVersion>
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
 		<RootNamespace>Chinook.DataLoader</RootNamespace>
 		<Authors>nventive</Authors>
@@ -11,7 +11,7 @@
 		<Description>Recipes for loading asynchronous data in a MVVM context.</Description>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageTags>dataloader;async;mvvm;xamarin;ios;android;uwp;chinook;maui;winui</PackageTags>
+		<PackageTags>dataloader;async;mvvm;ios;android;chinook;maui;winui</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/nventive/Chinook.DataLoader</PackageProjectUrl>
 
