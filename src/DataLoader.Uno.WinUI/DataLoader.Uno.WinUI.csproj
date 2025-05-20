@@ -26,14 +26,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Uno.WinUI" Version="5.0.19" />
-		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.1.0" />
 		<ProjectReference Include="..\DataLoader.Abstractions\DataLoader.Abstractions.csproj" />
 		<ProjectReference Include="..\DataLoader\DataLoader.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- Needed for Source Link support -->
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net8.0-windows10.0.19041'">
