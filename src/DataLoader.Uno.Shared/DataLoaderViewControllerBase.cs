@@ -51,6 +51,7 @@ namespace Chinook.DataLoader
 		private IDataLoaderState _lastState;
 		private DataLoaderViewState _lastViewState;
 		private bool _isLoaded;
+		private bool _isControlTemplateApplied;
 		private bool _isSubscribedToSource;
 		private bool _isVisualStateRefreshRequired;
 		private DateTimeOffset _lastUpdate = DateTimeOffset.MinValue; // This is a timestamp of when the last UI update was done.
@@ -145,6 +146,12 @@ namespace Chinook.DataLoader
 			_isLoaded = false;
 		}
 
+		public void OnControlTemplateApplied()
+		{
+			_isControlTemplateApplied = true;
+			Update(_dataLoader?.State);
+		}
+
 		private void OnDataLoaderStateChanged(IDataLoader dataLoader, IDataLoaderState newState)
 		{
 			Update(newState);
@@ -190,7 +197,7 @@ namespace Chinook.DataLoader
 					if (Object.Equals(_nextState, _lastState))
 					{
 						// When the states are equal, we usually skip the update, unless a visual state refresh is required. (That happens when the DataLoader changes state before the DataLoaderView is Loaded.)
-						if (_isVisualStateRefreshRequired && _isLoaded)
+						if (_isVisualStateRefreshRequired && _isLoaded && _isControlTemplateApplied)
 						{
 							await RunOnDispatcher(() =>
 							{
@@ -288,7 +295,7 @@ namespace Chinook.DataLoader
 				var combinedVisualState = $"{dataVisualState}_{errorVisualState}_{loadingVisualState}";
 				GoToState(view, CombinedVisualGroup, combinedVisualState);
 
-				if (_isLoaded)
+				if (_isLoaded && _isControlTemplateApplied)
 				{
 					_isVisualStateRefreshRequired = false;
 
@@ -395,7 +402,7 @@ namespace Chinook.DataLoader
 				if (currentState != visualState)
 				{
 					_currentGroupStates[group] = visualState;
-					if (_isLoaded)
+					if (_isLoaded && _isControlTemplateApplied)
 					{
 						VisualStateManager.GoToState(control, visualState, useTransitions);
 					}
@@ -404,7 +411,7 @@ namespace Chinook.DataLoader
 			else
 			{
 				_currentGroupStates[group] = visualState;
-				if (_isLoaded)
+				if (_isLoaded && _isControlTemplateApplied)
 				{
 					VisualStateManager.GoToState(control, visualState, useTransitions);
 				}
