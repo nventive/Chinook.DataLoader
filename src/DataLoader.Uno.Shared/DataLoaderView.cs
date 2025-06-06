@@ -55,6 +55,13 @@ namespace Chinook.DataLoader
 			_controller.OnViewUnloaded();
 		}
 
+		protected override void OnApplyTemplate()
+		{
+			base.OnApplyTemplate();
+
+			_controller.OnControlTemplateApplied();
+		}
+
 		private void OnSourceChanged(IDataLoader dataLoader)
 		{
 			_controller.SetDataLoader(dataLoader);
