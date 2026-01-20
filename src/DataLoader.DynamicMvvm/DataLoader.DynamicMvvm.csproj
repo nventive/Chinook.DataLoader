@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
-		<LangVersion>12</LangVersion>
+		<LangVersion>14</LangVersion>
 		<RootNamespace>Chinook.DynamicMvvm</RootNamespace>
 		<Authors>nventive</Authors>
 		<Company>nventive</Company>
@@ -31,12 +31,12 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DataLoader\DataLoader.csproj" />
-		<PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="1.0.0" />
+		<PackageReference Include="Chinook.DynamicMvvm.Abstractions" Version="3.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- Needed for Source Link support -->
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 	
 </Project>
